@@ -35,7 +35,8 @@ const CalorieCalculatorForm = () => {
             duration: duration,
           },
           headers: {
-            "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+            "X-RapidAPI-Key":
+              process.env.RAPID_API_KEY,
             "X-RapidAPI-Host": "calories-burned-by-api-ninjas.p.rapidapi.com",
           },
         }
@@ -53,6 +54,8 @@ const CalorieCalculatorForm = () => {
     }
   };
 
+
+  //TODO: add most frequent searches
   return (
     <div>
       <form
