@@ -28,21 +28,25 @@ const Home = () => {
   // const [exercises, setExercises] = useState([]);
   // const [bodyPart, setBodyPart] = useState("all");
   const navigateToExercises = () => {
-    router.push("/explore-exercises");
+    router.push("/");
   };
 
   return (
     <>
-
-    {isLoading ? (
+      {isLoading ? (
         <LoadingPage />
       ) : (
         <>
-      <div className="bg-primary h-screen overflow-x-hidden">
-        <Navbar />
+          <div className="bg-primary h-screen overflow-x-hidden">
+            <div className=" absolute bg-hero opacity-20 w-full h-full
+             overflow-hidden bg-cover bg-center">
+             
+            </div>
 
-        <HeroBanner navigateToExercises={navigateToExercises} />
-        {/* <SearchExercises
+            <Navbar />
+
+            <HeroBanner navigateToExercises={navigateToExercises} />
+            {/* <SearchExercises
         setExercises={setExercises}
         bodyPart={bodyPart}
         setBodyPart={setBodyPart}
@@ -52,10 +56,10 @@ const Home = () => {
         exercises={exercises}
         bodyPart={bodyPart}
       /> */}
-      </div>
-      <Footer />
-      </>
-    )}
+          </div>
+          <Footer />
+        </>
+      )}
     </>
   );
 };
