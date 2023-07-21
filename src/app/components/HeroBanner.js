@@ -1,35 +1,63 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import Banner from "../assets/banner.jpg";
+import { Router } from "next/router";
+import React, { useState, useEffect } from "react";
+import MotivationalQuote from "./MotivationalQuote";
 
-const HeroBanner = () => (
-  <div className="flex flex-col gap-6 items-start justify-around">
-    <h2 className="text-secondary font-semibold text-4xl mb-6 px-12">
-      My Workouts
-    </h2>
-    <h1 className="text-highlights font-bold text-7xl  px-12">
-      My daily source <br />
-      of energy
-    </h1>
-    <p className="text-xl  italic px-12">Just 1 percent better everyday</p>
+const HeroBanner = ({ navigateToExercises }) => {
+  const [isRocketAnimating, setRocketAnimating] = useState(false);
+   const [isMounted, setIsMounted] = useState(false);
 
-    <div
-      
-      className="bg-secondary text-black cursor-pointer hover:translate-y-1 hover:bg-highlights
-      font-semibold mx-12 py-4 px-6 text-xl rounded-full transition-all duration-300"
-    >
-      <Link href='/explore-exercises'>Explore exercises </Link>
-      
-    </div>
-    <Image
-      src={Banner}
-      width={1000}
-      height={200}
-      alt="banner"
-      className="w-full"
-    />
-  </div>
-);
+    const handleTakeoff = () => {
+      setRocketAnimating(true);
+
+      setTimeout(() => {
+        setRocketAnimating(false);
+        // Navigate to the next page after a delay
+        setTimeout(() => {
+          navigateToExercises();
+        }, 2000);
+      }, 2000);
+    };
+
+  return (
+    <>
+      <div
+        className={`relative flex flex-col gap-6 items-start
+ justify-between max-h-[70%] pt-24 `}
+      >
+        <h2 className={`text-white font-semibold text-2xl  px-12`}>
+          My Workouts
+        </h2>
+        <h1
+          className={`text-highlights font-bold text-7xl  px-12 
+      ${isMounted ? "" : "animate-slide-in-left"}
+      `}
+        >
+          Daily source <br />
+          of energy
+        </h1>
+
+        <div
+          className="bg-secondary text-black cursor-pointer hover:translate-y-1 hover:bg-highlights
+        font-semibold mx-12 mt-12 py-4 px-6 text-xl rounded-full
+         transition-all duration-300 animate-slide-in-left"
+          onClick={handleTakeoff}
+        >
+          <Link href="/">Explore exercises </Link>
+        </div>
+        <div
+          className={`relative 
+         mt-24 mr-4 self-end 
+          ${isRocketAnimating ? "animate-rocket-out" : "animate-bounce-slow"}`}
+          id="rocket"
+        >
+          <Image src="/assets/rocket.png" width={60} height={60} />
+        </div>
+      </div>
+      <MotivationalQuote />
+    </>
+  );
+};
 
 export default HeroBanner;
