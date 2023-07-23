@@ -24,7 +24,7 @@ const HeroBanner = ({ navigateToExercises }) => {
     <>
       <div
         className={`relative flex flex-col gap-6 items-start
- justify-between max-h-[70%] pt-24 `}
+ justify-between max-h-[70%] pt-48 `}
       >
         <h2 className={`text-white font-semibold text-2xl  px-12`}>
           My Workouts
@@ -52,7 +52,8 @@ const HeroBanner = ({ navigateToExercises }) => {
           ${isRocketAnimating ? "animate-rocket-out" : "animate-bounce-slow"}`}
           id="rocket"
         >
-          <Image src="/assets/rocket.png" width={60} height={60} />
+          <Image src="/assets/rocket.png" 
+          width={60} height={60} alt='rocket illustration'/>
         </div>
       </div>
       <MotivationalQuote />

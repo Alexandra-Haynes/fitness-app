@@ -19,6 +19,7 @@ const CaloriesBurned = () => {
           src="/assets/dumbell.png"
           width={320}
           height={180}
+          alt='dumbell icon'
           className="absolute bottom-4 -right-24 -z-10"
         />
         <CalorieCalculatorForm />
