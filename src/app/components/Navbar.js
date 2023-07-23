@@ -49,7 +49,8 @@ const NavBar = () => {
     rounded-l-full shadow-2xl m-2 "
     >
       <Link href="/">
-        <Image src="/assets/energy.png" width={30} height={30} alt="logo" />
+        <Image src="/assets/energy.png" 
+        width={30} height={30} alt="logo" />
       </Link>
       <div className="lg:hidden z-50">
         {navIsVisible ? (

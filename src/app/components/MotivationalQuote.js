@@ -1,6 +1,13 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { GrFormClose } from "react-icons/gr";
+import { Dancing_Script } from "next/font/google";
+
+const dancingFont = Dancing_Script({
+  weight: '400',
+  subsets: ['latin']
+})
+
 
 const MotivationalQuote = () => {
   const motivationalQuotes = [
@@ -38,17 +45,18 @@ const MotivationalQuote = () => {
 
   return (
     <div
-      className="absolute bottom-0 right-0 left-0 mx-auto mb-4 animate-slide-in-right p-4 
-    text-myWhite w-[400px] h-fit min-h-[120px] rounded-md  hover:border-primary hover:bg-white/10"
+      className={`absolute bottom-0 right-0 left-0 mx-auto mb-4 animate-slide-in-right p-4 
+    text-myWhite w-[400px]  h-fit min-h-[120px] rounded-md  hover:border-primary hover:bg-white/10
+    ${dancingFont.className}`}
       id="textBox"
     >
       {showPopup && (
-        <div className="">
+        <div >
           <div className="">
-            <h2 className="italic font-mono text-black mb-4">
+            <h2 className="underline underline-offset-2  text-black mb-4">
               Quote of the day
             </h2>
-            <p className="font-mono mr-6">{quote}</p>
+            <p className="text-lg mr-6">{quote}</p>
 
             <button
               onClick={closePopup}
@@ -62,6 +70,7 @@ const MotivationalQuote = () => {
             src="/assets/quotes.png"
             height={80}
             width={80}
+            alt='quotes icon'
             className="absolute -right-6 -bottom-0"
           />
         </div>
