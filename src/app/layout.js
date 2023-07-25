@@ -1,8 +1,9 @@
 
-import Provider from './utils/SessionProvider'
-
 import './globals.css'
 import { Roboto } from 'next/font/google'
+import NavBar from './components/Navbar'
+import Footer from './components/Footer'
+import Provider from '../SessionProvider'
 
 const robotoFont = Roboto({ subsets: ['latin'] , weight: '400'})
 
@@ -16,9 +17,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={robotoFont.className}>
-        <Provider>{children}</Provider>
-      </body>
+      <Provider>
+        <body className={robotoFont.className}>
+          <NavBar />
+          {children}
+          <Footer />
+        </body>
+      </Provider>
     </html>
   );
 }

@@ -1,22 +1,3 @@
-
-
-// const Navbar = () => (
-//   <div
-//     className="flex flex-row justify-between items-center py-3 px-12
-//   mb-6  text-highlights bg-primary"
-//   >
-//     <Link href="/">
-//       <Image src='/assets/energy.png' width={30} height={30} alt="logo" />
-//     </Link>
-//     <div className="flex flex-row gap-4 items-center justify-between  text-md animate-slide-in-top">
-//       <Link href="/">Home</Link>
-//       <Link href="/explore-exercises">Exercises</Link>
-//     </div>
-//   </div>
-// );
-
-// export default Navbar;
-
 "use client";
 
 import React, { useState } from "react";
@@ -29,10 +10,11 @@ import { LiaHomeSolid } from "react-icons/lia";
 import { AiOutlineHeart, AiOutlineCalculator } from "react-icons/ai";
 import { BsBookshelf } from "react-icons/bs";
 import { CiApple } from "react-icons/ci";
-import {CgGym} from 'react-icons/cg'
+import { CgGym } from "react-icons/cg";
+import AuthProfileMenu from "./AuthProfileMenu";
 
 const NavBar = () => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const [navIsVisible, setNavIsVisible] = useState(false);
 
   const navVisibilityHandler = () => {
@@ -49,8 +31,7 @@ const NavBar = () => {
     rounded-l-full shadow-2xl m-2 "
     >
       <Link href="/">
-        <Image src="/assets/energy.png" 
-        width={30} height={30} alt="logo" />
+        <Image src="/assets/energy.png" width={30} height={30} alt="logo" />
       </Link>
       <div className="lg:hidden z-50">
         {navIsVisible ? (
@@ -77,8 +58,8 @@ const NavBar = () => {
         items-center justify-center gap-x-9 gap-y-12 text-white`}
       >
         <ul
-          className="flex flex-col items-end gap-x-5 gap-y-5
-        lg:flex-row gap-2 "
+          className="flex flex-col items-start gap-x-5 gap-y-5
+        lg:flex-row gap-2 whitespace-nowrap "
         >
           <li>
             {" "}
@@ -127,7 +108,7 @@ const NavBar = () => {
           </li>
           <li>
             <Link
-              href={"/calorie-burned"}
+              href={"/calories-burned"}
               className="text-xl  flex flex-row items-center
                justify-center gap-2
             "
@@ -141,12 +122,17 @@ const NavBar = () => {
               className="text-xl  flex flex-row items-center
                justify-center gap-2 
             "
-            > <CgGym />
+            >
+              {" "}
+              <CgGym />
               exercises.
             </Link>
           </li>
         </ul>
-        <SessionProvider>
+
+        <AuthProfileMenu />
+
+        {/* <SessionProvider>
           {session?.user ? (
             <>
               <button
@@ -177,7 +163,7 @@ const NavBar = () => {
               </Link>
             </div>
           )}
-        </SessionProvider>
+        </SessionProvider> */}
       </nav>
     </header>
   );

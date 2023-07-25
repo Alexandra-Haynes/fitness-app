@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import NavBar from "../components/Navbar";
-import Footer from "../components/Footer";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,14 +40,13 @@ const Login = () => {
   };
   return (
     <>
-      <NavBar />
       <section
         className="w-screen h-screen bg-hero2
     flex flex-col items-center justify-center bg-center bg-cover"
       >
         <div
-          className="flex flex-col  w-2/3 md:w-1/2 px-4 py-8
-           bg-white/80 
+          className="flex flex-col  w-2/3 md:w-1/2 px-8 py-8
+           bg-white/80 max-w-[600px]
         rounded-md shadow-xl md:p-24"
         >
           <h1
@@ -58,46 +56,46 @@ const Login = () => {
             Login
           </h1>
 
-          <h2 className="self-center text-xl font-light
-           text-gray-600 ">
+          <h2
+            className="self-center text-xl font-light
+           text-gray-600 "
+          >
             Welcome Back!
           </h2>
-         
-            <form onSubmit={handleSubmit} className="mt-8">
-              
-                <input
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                  className="rounded-lg border border-primary/50 w-full py-2 px-4
-                     bg-white text-gray-700
+
+          <form className="mt-8">
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              className="rounded-lg border border-primary/50 w-full py-2 px-4
+                     bg-white text-gray-700 mb-2
                      placeholder-gray-400 shadow-sm  focus:outline-none
                      focus:placeholder:invisible  
                      focus:ring-2 focus:ring-secondary focus:border-transparent"
-                  placeholder="Email"
-                />
-              
+              placeholder="Email"
+            />
 
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                id="sign-in-email"
-                className="w-full rounded-lg border border-primary/50 py-2 px-4 mb-4 
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="sign-in-email"
+              className="w-full rounded-lg border border-primary/50 py-2 px-4 mb-4 
                     bg-white text-gray-700 placeholder-gray-400 shadow-sm 
                      focus:outline-none focus:ring-2 focus:ring-secondary 
                     focus:placeholder:invisible  focus:border-transparent"
-                placeholder="Password"
-              />
+              placeholder="Password"
+            />
 
-              <button
-                type="submit"
-                className="py-2 px-4 hover:bg-primary hover:text-white bg-highlights
+            <button
+              onClick={handleSubmit}
+              className="py-2 px-4 hover:bg-primary hover:text-white bg-highlights
                     text-black w-full transition ease-in-out duration-200 
                     text-center shadow-md  rounded-lg hover:translate-y-1"
-              >
-                Login
-              </button>
-            </form>
-         
+            >
+              Login
+            </button>
+          </form>
+
           <div className="flex items-center justify-center mt-6">
             <a
               href="/register"
@@ -110,7 +108,6 @@ const Login = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };
