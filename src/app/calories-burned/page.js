@@ -1,16 +1,13 @@
 import React from "react";
 import CalorieCalculatorForm from "../components/CalorieCalculatorForm";
 import Image from "next/image";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-
 
 
 const CaloriesBurned = () => {
   return (
     <>
       <div className="h-fit min-h-screen relative overflow-x-hidden">
-        <Navbar />
+       
         <h1 className="text-3xl font-light py-6 text-center text-primary">
           Calorie Calculator
         </h1>
@@ -24,7 +21,7 @@ const CaloriesBurned = () => {
         />
         <CalorieCalculatorForm />
       </div>
-      <Footer />
+     
     </>
   );
 };
