@@ -1,10 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Router } from "next/router";
+import { useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import MotivationalQuote from "./MotivationalQuote";
 
 const HeroBanner = ({ navigateToExercises }) => {
+  const { data: session } = useSession();
+  console.log("session", session);
+  const isLoggedIn = !!session?.user;
+   
+
   const [isRocketAnimating, setRocketAnimating] = useState(false);
    const [isMounted, setIsMounted] = useState(false);
 
@@ -26,16 +32,26 @@ const HeroBanner = ({ navigateToExercises }) => {
         className={`relative flex flex-col gap-6 items-start
  justify-between max-h-[70%] pt-48 `}
       >
-        <h2 className={`text-white font-semibold text-2xl  px-12`}>
-          My Workouts
-        </h2>
+        {isLoggedIn ? (
+          <div>
+          <h2 className="text-white font-semibold text-2xl  px-12">
+           Welcome back! {session.user.username}
+          </h2>
+
+</div>
+        ) : (
+          <h2 className="text-white font-semibold text-2xl  px-12">
+            My Workouts
+          </h2>
+        )}
+
         <h1
           className={`text-highlights font-bold text-7xl  px-12 
       ${isMounted ? "" : "animate-slide-in-left"}
       `}
         >
-          Daily source <br />
-          of energy
+          Get further... <br />
+          Get ahead
         </h1>
 
         <div
@@ -46,7 +62,7 @@ const HeroBanner = ({ navigateToExercises }) => {
         >
           <Link href="/">Explore exercises </Link>
         </div>
-        <div
+        {/* <div
           className={`relative 
          mt-24 mr-4 self-end 
           ${isRocketAnimating ? "animate-rocket-out" : "animate-bounce-slow"}`}
@@ -54,9 +70,9 @@ const HeroBanner = ({ navigateToExercises }) => {
         >
           <Image src="/assets/rocket.png" 
           width={60} height={60} alt='rocket illustration'/>
-        </div>
+        </div> */}
       </div>
-      <MotivationalQuote />
+      {/* <MotivationalQuote /> */}
     </>
   );
 };
