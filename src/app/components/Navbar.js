@@ -23,6 +23,10 @@ const NavBar = () => {
     });
   };
 
+   const closeNavBar = () => {
+     setNavIsVisible(false);
+   };
+
   return (
     <header
       className="fixed cursor-pointer 
@@ -61,7 +65,7 @@ const NavBar = () => {
           className="flex flex-col items-start gap-x-5 gap-y-5
         lg:flex-row gap-2 whitespace-nowrap "
         >
-          <li>
+          <li onClick={closeNavBar}>
             {" "}
             <Link
               href={"/"}
@@ -71,7 +75,7 @@ const NavBar = () => {
               <LiaHomeSolid /> home.
             </Link>
           </li>
-          <li>
+          <li onClick={closeNavBar}>
             <Link
               href={"/about"}
               className="text-xl 
@@ -82,7 +86,7 @@ const NavBar = () => {
               explore.
             </Link>
           </li>
-          <li>
+          <li onClick={closeNavBar}>
             <Link
               href={"/nutrition"}
               className="text-xl 
@@ -94,7 +98,7 @@ const NavBar = () => {
               nutrition.
             </Link>
           </li>
-          <li>
+          <li onClick={closeNavBar}>
             <Link
               href={"/saved"}
               className="text-xl  flex flex-row 
@@ -106,7 +110,7 @@ const NavBar = () => {
               saved.
             </Link>
           </li>
-          <li>
+          <li onClick={closeNavBar}>
             <Link
               href={"/calories-burned"}
               className="text-xl  flex flex-row items-center
@@ -116,7 +120,7 @@ const NavBar = () => {
               <AiOutlineCalculator /> calorie calculator.
             </Link>
           </li>
-          <li>
+          <li onClick={closeNavBar}>
             <Link
               href="/explore-exercises"
               className="text-xl  flex flex-row items-center
@@ -131,39 +135,6 @@ const NavBar = () => {
         </ul>
 
         <AuthProfileMenu />
-
-        {/* <SessionProvider>
-          {session?.user ? (
-            <>
-              <button
-                onClick={() => {
-                  signOut();
-                }}
-                className="bg-highlights hover:bg-primary hover:text-white transition-all duration-300
-                text-center text-black w-[180px] px-4 py-2 rounded-md "
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <div className="flex flex-row items-end justify-center gap-4 ml-4">
-              <Link
-                href="/login"
-                className="bg-highlights hover:bg-white transition-all 
-                duration-300 text-black px-4 py-2 rounded-md "
-              >
-                Log In
-              </Link>
-              <Link
-                href="/register"
-                className="border-b-secondary border-b hover:bg-secondary 
-                transition-all duration-300 text-white px-4 py-2 rounded-md "
-              >
-                Create account
-              </Link>
-            </div>
-          )}
-        </SessionProvider> */}
       </nav>
     </header>
   );
