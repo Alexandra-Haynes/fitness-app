@@ -2,27 +2,17 @@
 
 import React, { useState } from "react";
 
-import Exercises from "../components/Exercises";
-import SearchExercises from "../components/SearchExercises";
-import Navbar from "../components/Navbar";
+import ExerciseSearch from '../components/ExerciseSearch'
+
+
 
 
 const ExploreExercises = () => {
-     const [exercises, setExercises] = useState([]);
-     const [bodyPart, setBodyPart] = useState("all");
+     
   return (
-    <div className=" bg-primary ">
-      <Navbar />
-      <SearchExercises
-        setExercises={setExercises}
-        bodyPart={bodyPart}
-        setBodyPart={setBodyPart}
-      />
-      <Exercises
-        setExercises={setExercises}
-        exercises={exercises}
-        bodyPart={bodyPart}
-      />
+    <div className="min-h-screen bg-slate-600">
+     
+      <ExerciseSearch />
     </div>
   );
 }

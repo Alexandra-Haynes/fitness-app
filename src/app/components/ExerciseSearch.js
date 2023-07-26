@@ -1,191 +1,181 @@
-'use client'
-
 import React, { useState } from "react";
 import axios from "axios";
+import ExerciseCard from "./ExerciseCard";
+import Image from "next/image";
+import {CiSearch} from 'react-icons/ci'
 
-const ExerciseSearch = () => {
-  const [searchText, setSearchText] = useState(""); 
+const Experiment = () => {
+  const [searchedEx, setSearchedEx] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("");
+  const [selectedMuscle, setSelectedMuscle] = useState("");
+  const [exercises, setExercises] = useState([]); //exercise_name output
+  const [numOfResults, setNumOfResults] = useState(0);
+  const [filterIsOpen, setFilterIsOpen] = useState(false);
 
-  const [type, setType] = useState("");
-  const [difficulty, setDifficulty] = useState("");
-  const [exercises, setExercises] = useState([]);
-  const [selectedExercise, setSelectedExercise] = useState(null);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "searchedEx") {
+      setSearchedEx(value);
+    }
+  };
+const handleOpenFilters = () => {
+  return setFilterIsOpen(true);
+};
 
-  const handleSubmit = (e) => {
+
+  const fetchExercises = async (e) => {
     e.preventDefault();
-
-    // Create an object with the selected options
-    const searchOptions = {
-      type,
-      difficulty,
-      exercise_name: searchText,
-    };
-
-    axios
-      .post("https://musclewiki.p.rapidapi.com/exercises/v1/exercises", {
-        params: searchOptions,
+    let url = "https://musclewiki.p.rapidapi.com/exercises";
+    try {
+      const response = await axios.get(url, {
+        params: {
+          name: searchedEx,
+          category: selectedCategory,
+          difficulty: selectedDifficulty,
+          muscle: selectedMuscle,
+        },
         headers: {
           "X-RapidAPI-Key":
-            "e119a0a4ecmsh9f0e8682c769d3ap16d415jsn9bda5349b4fe",
+            "dd49a69f86msh997798245d6cb35p1057cajsn472283222f56",
           "X-RapidAPI-Host": "musclewiki.p.rapidapi.com",
         },
-      })
-      .then((response) => response.json())
-      .then((response) => {
-        const filteredExercises = response.data.filter((exercise) =>
-          exercise.name.toLowerCase().includes(searchText.toLowerCase())
-        );
-        setExercises(filteredExercises);
-      })
-      .catch((error) => {
-        console.error(error);
       });
-  };
 
-  const handleExerciseDetails = (exercise) => {
-    setSelectedExercise(exercise);
+      setExercises(response.data);
+      //   setNumOfResults(exercises.length)
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+
+    
   };
 
   return (
-    <section className="h-screen bg-hero bg-center bg-cover flex flex-col items-center justify-center">
-      <div className="bg-white/90 w-[90%] h-[80%] rounded p-12">
-        <form onSubmit={handleSubmit}>
-          {/* Exercise Type */}
-          <h1 className="font-semibold uppercase text-center pb-12 text-2xl">
-            Choose your workout
-          </h1>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              1. Search by exercise name
-            </label>
+    <section className="">
+      <h1 className="text-gray-200 text-6xl text-center py-12 pt-24">
+        Search exercises
+      </h1>
+      <div
+        className="flex flex-col-reverse md:flex-row-reverse items-center justify-center 
+       px-2 "
+      >
+        <div className="p-  ">
+          <div className="flex flex-row items-center justify-start gap-4">
+            {/* <CiSearch /> */}
             <input
               type="text"
-              className="block w-full bg-white border border-gray-300 
-              text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
-              focus:bg-white focus:border-gray-500"
-              placeholder="Exercise name..."
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
+              name="searchedEx"
+              value={searchedEx}
+              onChange={handleChange}
+              placeholder={` Search exercises`}
+              className="p-2 rounded-lg min-w-[300px] bg-slate-400 placeholder:text-slate-500 border focus:bg-slate-300 focus:text-black"
             />
+            <button onClick={handleOpenFilters}>
+              <Image
+                src="/assets/filter.png"
+                width={20}
+                height={20}
+                alt="filter icon"
+              />
+            </button>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              1. Select your today's workout
-            </label>
-            <select
-              className="block appearance-none w-full bg-white border border-gray-300 
-              text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none 
-              focus:bg-white focus:border-gray-500"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            >
-              <option value="">Select type</option>
-              <option value="cardio">Cardio</option>
-              <option value="strength">Strength</option>
-              <option value="body">Strength</option>
-              <option value="stretching">Stretching</option>
-              <option value="powerlifting">Powerlifting</option>
-              <option value="plyometrics">Plyometrics</option>
-              <option value="olympic_weightlifting">
-                Olympic weightlifting
-              </option>
-              <option value="strongman">Strongman</option>
-            </select>
-          </div>
+          {filterIsOpen && (
+            <div>
+              <div className="flex flex-row gap-2 items-center justify-center py-4">
+                <label>beginner</label>
+                <input
+                  type="checkbox"
+                  name="selectedDifficulty"
+                  checked={selectedDifficulty === "beginner"}
+                  onChange={() => setSelectedDifficulty("beginner")}
+                />
+                <label>intermediate</label>
+                <input
+                  type="checkbox"
+                  name="selectedDifficulty"
+                  checked={selectedDifficulty === "Intermediate"}
+                  onChange={() => setSelectedDifficulty("Intermediate")}
+                />
+                <label>advanced</label>
+                <input
+                  type="checkbox"
+                  name="selectedDifficulty"
+                  checked={selectedDifficulty === "advanced"}
+                  onChange={() => setSelectedDifficulty("advanced")}
+                />
+              </div>
+              {/* let categoriesData = [ "Barbell", "Dumbbells", "Kettlebells",
+          "Stretches", "Cables", "Band", "Plate", "TRX", "Bodyweight", "Yoga",
+          "Machine", ]; */}
+              <div>
+                <ul>
+                  <li>
+                    <label>Barbell</label>
+                    <input
+                      type="checkbox"
+                      name="selectedCategory"
+                      checked={selectedCategory === "barbell"}
+                      onChange={() => setSelectedCategory("barbell")}
+                    />
+                  </li>
+                  <li>
+                    <label>Dumbbells</label>
+                    <input
+                      type="checkbox"
+                      name="selectedCategory"
+                      checked={selectedCategory === "Dumbbells"}
+                      onChange={() => setSelectedCategory("Dumbbells")}
+                    />
+                  </li>
+                </ul>
+              </div>
 
-          {/* Exercise Difficulty */}
-          <div className="mb-4 flex flex-row gap-2 items-center justify-center">
-            <label className="font-semibold">Difficulty: </label>
-            <div className="flex items-center">
-              <input
-                type="radio"
-                name="difficulty"
-                value="beginner"
-                className="form-radio h-5 w-9"
-                checked={difficulty === "beginner"}
-                onChange={() => setDifficulty("beginner")}
-              />
-              <span className="ml-2">Beginner</span>
+              <div>
+                <label>
+                  Target Muscle:
+                  <select
+                    name="selectedMuscle"
+                    value={selectedMuscle}
+                    onChange={(e) => setSelectedMuscle(e.target.value)}
+                  >
+                    <option value="">Select a muscle</option>
+                    <option value="muscle_1">Muscle 1</option>{" "}
+                    {/* Replace "muscle_1" with the actual muscle value */}
+                    <option value="muscle_2">Muscle 2</option>{" "}
+                    {/* Replace "muscle_2" with the actual muscle value */}
+                    {/* Add more options for different muscles */}
+                  </select>
+                </label>
+              </div>
             </div>
-            <div className="flex items-center">
-              <input
-                type="radio"
-                name="difficulty"
-                value="intermediate"
-                className="form-radio h-5 w-9 "
-                checked={difficulty === "intermediate"}
-                onChange={() => setDifficulty("intermediate")}
-              />
-              <span className="ml-2">Intermediate</span>
-            </div>
-            <div className="flex items-center">
-              <input
-                type="radio"
-                name="difficulty"
-                value="expert"
-                className="form-radio h-5 w-9 "
-                checked={difficulty === "expert"}
-                onChange={() => setDifficulty("expert")}
-              />
-              <span className="ml-2">Expert</span>
-            </div>
-          </div>
+          )}
 
           <button
-            type="submit"
-            className="bg-secondary text-white font-bold py-2 px-4 rounded"
+            className="bg-secondary p-2 px-4 mt-2 rounded-full"
+            onClick={fetchExercises}
           >
             Search
           </button>
-        </form>
-
-        {/* _____________________RESULTS */}
-        <div>
-          {exercises.map((exercise) => (
-            <div key={exercise.id}>
-              <h3>Name: {exercise.name}</h3>
-              <p>Muscle: {exercise.muscle}</p>
-              <p>Equipment: {exercise.equipment}</p>
-
-              {/* Add a button to view exercise details */}
-              <button
-                className="bg-secondary text-white font-bold py-2 px-4 rounded mt-2"
-                onClick={() => handleExerciseDetails(exercise)}
-              >
-                View Details
-              </button>
-            </div>
-          ))}
         </div>
-
-        {/* Display selected exercise details */}
-        {selectedExercise && (
-          <div>
-            <h3>Name: {selectedExercise.name}</h3>
-            <p>Muscle: {selectedExercise.muscle}</p>
-            <p>Equipment: {selectedExercise.equipment}</p>
-            <p>Category: {selectedExercise.category}</p>
-            <p>Difficulty: {selectedExercise.difficulty}</p>
-            <p>Force: {selectedExercise.force}</p>
-            <p>Details: {selectedExercise.details}</p>
-            <p>Video 1: {selectedExercise.videoURL[0]}</p>
-            <p>Video 2: {selectedExercise.videoURL[1]}</p>
-            <p>Steps: {selectedExercise.steps}</p>
-
-            {/* Add a button to close exercise details */}
-            <button
-              className="bg-secondary text-white font-bold py-2 px-4 rounded mt-2"
-              onClick={() => setSelectedExercise(null)}
-            >
-              Close Details
-            </button>
-          </div>
-        )}
+        <div className="absolute bottom-4 -right-24 ">
+          <Image
+            src="/assets/training.png"
+            width={320}
+            height={180}
+            alt="fitness icon"
+          />
+        </div>
       </div>
+      <ul className="">
+        {exercises.map((exercise) => (
+          <ExerciseCard exercise={exercise} />
+        ))}
+      </ul>
     </section>
   );
 };
 
-export default ExerciseSearch;
+export default Experiment;
