@@ -60,7 +60,7 @@ const HeroBanner = ({ navigateToExercises }) => {
          transition-all duration-300 animate-slide-in-left"
           onClick={handleTakeoff}
         >
-          <Link href="/">Explore exercises </Link>
+          <Link href="/explore-exercises">Explore exercises </Link>
         </div>
         {/* <div
           className={`relative 

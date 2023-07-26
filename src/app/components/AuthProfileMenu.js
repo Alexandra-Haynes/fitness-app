@@ -8,9 +8,8 @@ import {BiSolidUserCheck} from 'react-icons/bi'
 const AuthProfileMenu = () => {
 const { data: session } = useSession();
 console.log('session', session)
-    const isLoggedIn = !!session?.user;
+const isLoggedIn = !!session?.user;
    
-
 
   return (
     <>
