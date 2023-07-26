@@ -8,6 +8,7 @@
 body {
   font-family: 'Raleway', sans-serif;
   /* background-color: #9270b8; */
+  overflow-x: hidden;
  
 }
 
