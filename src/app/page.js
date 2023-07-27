@@ -29,7 +29,7 @@ const Home = () => {
       ) : (
         <>
           <div className=" bg-slate-700 h-screen overflow-x-hidden">
-            <div className=" absolute bg-hero opacity-20 w-full h-full
+            <div className=" absolute bg-hero opacity-40 w-full h-full
              overflow-hidden bg-cover bg-center">
              
             </div>
