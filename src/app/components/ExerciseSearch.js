@@ -220,7 +220,7 @@ const ExerciseSearch = () => {
                 onFocus={() => setShowSuggestions(true)} // Show suggestions when the input is focused
                 // onBlur={() => setShowSuggestions(false)} // Hide suggestions when the input loses focus
                 placeholder=""
-                className=" p-2 rounded-lg min-w-[300px] bg-slate-300
+                className="shadow-xl p-2 rounded-lg min-w-[300px] bg-slate-300
                placeholder:text-slate-500 border focus:bg-slate-300 focus:text-black"
               />
 

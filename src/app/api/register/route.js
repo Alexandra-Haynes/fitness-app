@@ -1,6 +1,6 @@
 import User from "../../models/User";
 import bcrypt from "bcrypt";
-import dbConnect from "../../lib/db";
+import  dbConnect  from "../../lib/db";
 
 export async function POST(req) {
   try {
