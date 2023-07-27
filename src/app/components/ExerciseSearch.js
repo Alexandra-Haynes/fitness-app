@@ -93,7 +93,20 @@ const ExerciseSearch = () => {
        exercise.exercise_name.toLowerCase().includes(input.toLowerCase())
      );
 
-     setSuggestions(filteredExerciseNames);
+     
+    let suggestionsWithCloseButton = filteredExerciseNames;
+
+    if (input.trim() !== "") {
+      // Add the "Close Suggestions" option when the input is not empty
+      suggestionsWithCloseButton = [
+        { exercise_name: "Close Suggestions" },
+        ...filteredExerciseNames,
+      ];
+    }
+
+    setSuggestions(suggestionsWithCloseButton);
+
+     
    } catch (error) {
      console.error(error);
    }
@@ -114,9 +127,40 @@ const ExerciseSearch = () => {
     }
   };
   const handleSelect = (value) => {
-    setSelectedSuggestion(value);
-    setSearchedEx(value); // Set the selected suggestion to the search bar
-    setShowSuggestions(false); // Hide the suggestions
+   if (value === "Close Suggestions") {
+     setShowSuggestions(false);
+   } else {
+     setSelectedSuggestion(value);
+     setSearchedEx(value);
+     setShowSuggestions(false);
+   }
+  };
+
+  const fetchAllExercises = async () => {
+    try {
+      const response = await axios.get(
+        "https://musclewiki.p.rapidapi.com/exercises",
+        {
+          params: {
+            name: "", // Set name as an empty string to get all exercises
+          },
+          headers: {
+            "X-RapidAPI-Key":
+              "7fe9b1ed76msha35f8532c12af1fp1a55d7jsncc554e99d95b",
+            "X-RapidAPI-Host": "musclewiki.p.rapidapi.com",
+          },
+        }
+      );
+
+      // Filter exercises to match the current search input
+      const filteredExercises = response.data.filter((exercise) =>
+        exercise.exercise_name.toLowerCase().includes(searchedEx.toLowerCase())
+      );
+
+      setExercises(filteredExercises);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const fetchExercises = async (e) => {
@@ -177,12 +221,18 @@ const ExerciseSearch = () => {
                placeholder:text-slate-500 border focus:bg-slate-300 focus:text-black"
               />
               {showSuggestions && (
-                <div className="absolute left-0 
-                w-full bg-slate-100 border border-gray-300 mt-1">
+                <div
+                  className="absolute left-0 
+                w-full bg-slate-100 border border-gray-300 mt-1"
+                >
                   {suggestions.map((suggestion) => (
                     <div
                       key={suggestion}
-                      className="p-1 text-[.7rem] cursor-pointer hover:bg-slate-300"
+                      className={`p-1 text-[.7rem] cursor-pointer hover:bg-slate-300 ${
+                        suggestion.exercise_name === "Close Suggestions"
+                          ? "text-red-500 text-right" // Add custom styles for the close button
+                          : ""
+                      }`}
                       onClick={() => handleSelect(suggestion.exercise_name)}
                     >
                       {suggestion.exercise_name}
