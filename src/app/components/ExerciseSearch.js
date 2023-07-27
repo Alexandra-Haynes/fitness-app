@@ -14,7 +14,11 @@ const ExerciseSearch = () => {
   const [exercises, setExercises] = useState([]); //exercise_name output
   const [numOfResults, setNumOfResults] = useState(0);
   const [filterIsOpen, setFilterIsOpen] = useState(false);
-  const [hideIllustration, setHideIllustration] = useState(false)
+  const [hideIllustration, setHideIllustration] = useState(false);
+
+  // Pagination state variables
+  const itemsPerPage = 12;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const categories = [
     { id: "barbell", label: "Barbell" },
@@ -60,19 +64,19 @@ const ExerciseSearch = () => {
   const handleOpenFilters = () => {
     return setFilterIsOpen(true);
   };
-   const handleClearFilters = () => {
-     setSelectedCategory("");
-     setSelectedDifficulty("");
-     setSelectedMuscle("");
-   };
+  const handleClearFilters = () => {
+    setSelectedCategory("");
+    setSelectedDifficulty("");
+    setSelectedMuscle("");
+  };
 
-   const handleCloseFilters = () => {
-     setFilterIsOpen(false);
-   };
+  const handleCloseFilters = () => {
+    setFilterIsOpen(false);
+  };
 
   const fetchExercises = async (e) => {
     //hide illustration
-    setHideIllustration(true)
+    setHideIllustration(true);
     e.preventDefault();
     let url = "https://musclewiki.p.rapidapi.com/exercises";
     try {
@@ -85,7 +89,8 @@ const ExerciseSearch = () => {
         },
         headers: {
           "X-RapidAPI-Key":
-          process.env.RAPID_API_KEY,
+            "60553b28abmsh3782bc6ef7361bdp1bcb07jsn3b27858a6b5e",
+          // process.env.RAPID_API_KEY,
           "X-RapidAPI-Host": "musclewiki.p.rapidapi.com",
         },
       });
@@ -97,6 +102,10 @@ const ExerciseSearch = () => {
       console.error(error);
     }
   };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentExercises = exercises.slice(startIndex, endIndex);
 
   return (
     <section className="md:w-[80%] pt-12  mx-auto flex flex-col items-center justify-center">
@@ -110,16 +119,23 @@ const ExerciseSearch = () => {
         <div className=" ">
           <div className="flex flex-row items-center justify-start gap-4">
             {/* <CiSearch /> */}
-            <input
-              type="text"
-              name="searchedEx"
-              value={searchedEx}
-              onChange={handleChange}
-              placeholder={` Search exercises`}
-              className="p-2 rounded-lg min-w-[300px] bg-slate-300
+            <div className="relative">
+              <input
+                type="text"
+                name="searchedEx"
+                value={searchedEx}
+                onChange={handleChange}
+                placeholder=""
+                className=" p-2 rounded-lg min-w-[300px] bg-slate-300
                placeholder:text-slate-500 border focus:bg-slate-300 focus:text-black"
-            />
-            <button onClick={handleOpenFilters}>
+              />
+              <CiSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-slate-500" />
+            </div>
+
+            <button
+              onClick={handleOpenFilters}
+              className="hover:scale-105 transition-all duration-300"
+            >
               <Image
                 src="/assets/filter.png"
                 width={20}
@@ -234,7 +250,8 @@ const ExerciseSearch = () => {
           )}
 
           <button
-            className="bg-secondary uppercase p-2 px-8 mt-6 rounded-full hover:translate-y-1 shadow-xl"
+            className="bg-secondary uppercase p-2 px-8 mt-6 rounded-full 
+            hover:translate-y-1 shadow-xl transition-all ease-in-out duration-300"
             onClick={fetchExercises}
           >
             Search
@@ -251,11 +268,31 @@ const ExerciseSearch = () => {
           </div>
         )}
       </div>
-      <ul className="">
-        {exercises.map((exercise) => (
+      <ul className="mt-8">
+        {currentExercises.map((exercise) => (
           <ExerciseCard exercise={exercise} />
         ))}
       </ul>
+
+      {/* Pagination */}
+      <div className="flex justify-center my-4">
+        {Array.from(
+          { length: Math.ceil(exercises.length / itemsPerPage) },
+          (_, index) => index + 1
+        ).map((pageNumber) => (
+          <button
+            key={pageNumber}
+            className={`px-4 py-2 rounded-full mx-1 hover:scale-105 ${
+              pageNumber === currentPage
+                ? "bg-secondary text-white"
+                : "bg-gray-200 text-gray-800"
+            }`}
+            onClick={() => setCurrentPage(pageNumber)}
+          >
+            {pageNumber}
+          </button>
+        ))}
+      </div>
     </section>
   );
 };
