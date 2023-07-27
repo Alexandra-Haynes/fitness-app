@@ -229,7 +229,7 @@ const ExerciseSearch = () => {
               {showSuggestions && (
                 <div
                   className="absolute left-0 
-                w-full bg-slate-100  mt-1 overflow-y-scroll h-[600px]"
+                w-full bg-slate-100  mt-1 overflow-y-scroll max-h-[400px] shadow-2xl"
                 >
                   {suggestions.map((suggestion) => (
                     <div
