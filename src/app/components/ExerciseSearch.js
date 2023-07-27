@@ -164,7 +164,7 @@ const ExerciseSearch = () => {
   };
 
   const fetchExercises = async (e) => {
-    //hide illustration
+    
     setHideIllustration(true);
     e.preventDefault();
     let url = "https://musclewiki.p.rapidapi.com/exercises";
@@ -197,7 +197,7 @@ const ExerciseSearch = () => {
   const currentExercises = exercises.slice(startIndex, endIndex);
 
   return (
-    <section className="md:w-[80%] pt-12  mx-auto flex flex-col items-center justify-center">
+    <section className="h-fit md:w-[80%] pt-12  mx-auto flex flex-col items-center justify-center">
       <h1 className="text-gray-200 text-4xl text-center py-12 pt-24">
         Search exercises
       </h1>
@@ -205,6 +205,9 @@ const ExerciseSearch = () => {
         className="w-[80%] flex flex-col-reverse md:flex-row-reverse items-center justify-center 
        px-2 "
       >
+
+{/* _________________________________________________SEARCH BAR___________________________________ */}
+
         <div className=" ">
           <div className="flex flex-row items-center justify-start gap-4">
             {/* <CiSearch /> */}
@@ -220,15 +223,18 @@ const ExerciseSearch = () => {
                 className=" p-2 rounded-lg min-w-[300px] bg-slate-300
                placeholder:text-slate-500 border focus:bg-slate-300 focus:text-black"
               />
+
+{/* _________________________________________________SUGGESTIONS___________________________________ */}
+
               {showSuggestions && (
                 <div
                   className="absolute left-0 
-                w-full bg-slate-100 border border-gray-300 mt-1"
+                w-full bg-slate-100  mt-1 overflow-y-scroll h-[600px]"
                 >
                   {suggestions.map((suggestion) => (
                     <div
                       key={suggestion}
-                      className={`p-1 text-[.7rem] cursor-pointer hover:bg-slate-300 ${
+                      className={`p-1 pl-4 text-[.7rem] cursor-pointer hover:bg-slate-300 ${
                         suggestion.exercise_name === "Close Suggestions"
                           ? "text-red-500 text-right" // Add custom styles for the close button
                           : ""
@@ -242,6 +248,8 @@ const ExerciseSearch = () => {
               )}
               <CiSearch className="absolute -left-6 top-1/2 transform -translate-y-1/2 text-slate-100" />
             </div>
+
+            {/* _________________________________________________FILTER___________________________________ */}
 
             <button
               onClick={handleOpenFilters}
@@ -258,6 +266,8 @@ const ExerciseSearch = () => {
 
           {filterIsOpen && (
             <div className="flex flex-col items-start mt-4 gap-2 ">
+              {/* _________________________________________________DIFFICULTY___________________________________ */}
+
               <div className="w-full flex flex-row items-center justify-between">
                 <div className=" flex flex-row gap-2 items-center justify-center py-4 text-slate-300">
                   Difficulty level:{" "}
@@ -295,6 +305,9 @@ const ExerciseSearch = () => {
                     )}
                   </div>
                 </div>
+
+                {/* _________________________________________________FILTER BUTTONS___________________________________ */}
+
                 <div className="flex flex-row items-center justify-center gap-4">
                   {selectedCategory || selectedDifficulty || selectedMuscle ? (
                     <button
@@ -315,6 +328,7 @@ const ExerciseSearch = () => {
                 </div>
               </div>
 
+              {/* _________________________________________________CATEGORY___________________________________ */}
               <div
                 className="max-w-[460px] md:max-w-[800px] grid grid-cols-4
                lg:grid-cols-6 grid-rows-3 gap-2  text-slate-300"
@@ -335,6 +349,8 @@ const ExerciseSearch = () => {
                   </div>
                 ))}
               </div>
+
+              {/* _________________________________________________MUSCLE___________________________________ */}
 
               <div className="text-slate-300 mt-4">
                 <p className="col-span-4">Target Muscle:</p>
@@ -359,6 +375,7 @@ const ExerciseSearch = () => {
               </div>
             </div>
           )}
+          {/* _________________________________________________SEARCH BUTTON___________________________________ */}
 
           <button
             className="bg-secondary uppercase p-2 px-8 mt-6 rounded-full 
@@ -379,13 +396,16 @@ const ExerciseSearch = () => {
           </div>
         )}
       </div>
+      {/* _________________________________________________RESULTS___________________________________ */}
+
       <ul className="mt-8">
         {currentExercises.map((exercise) => (
           <ExerciseCard exercise={exercise} />
         ))}
       </ul>
 
-      {/* Pagination */}
+      {/* _________________________________________________PAGINATION___________________________________ */}
+
       <div className="flex justify-center my-4">
         {Array.from(
           { length: Math.ceil(exercises.length / itemsPerPage) },
