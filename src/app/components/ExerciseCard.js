@@ -88,12 +88,17 @@ const ExerciseCard = ({ exercise }) => {
                 <button
                   className="text-gray-600 text-sm underline "
                   onClick={handleExpand}
-                  title="Close details"
                 >
                   {expanded ? (
-                    <GrFormClose className="text-2xl hover:scale-110 " />
+                    <GrFormClose
+                      className="text-2xl hover:scale-110 "
+                      title="Close details"
+                    />
                   ) : (
-                    <MdOutlineOndemandVideo className="text-xl hover:scale-110" />
+                    <MdOutlineOndemandVideo
+                      className="text-xl hover:scale-110"
+                      title="Show details"
+                    />
                   )}
                 </button>
                 <button
@@ -124,7 +129,7 @@ const ExerciseCard = ({ exercise }) => {
             <ol className="text-slate-800  mt-4 px-4 border-l-2 border-slate-600">
               {formatSteps(exercise.steps)}
             </ol>
-            <div >
+            <div>
               <Image
                 src={`/assets/muscles/${formatTarget(exercise.target)}.png`}
                 height={100}
