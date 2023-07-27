@@ -23,6 +23,7 @@
     "next-auth": "^4.22.3",
     "postcss": "8.4.26",
     "react": "18.2.0",
+    "react-autocomplete": "^1.8.1",
     "react-dom": "18.2.0",
     "react-horizontal-scrolling-menu": "^4.1.0",
     "react-icons": "^4.10.1",

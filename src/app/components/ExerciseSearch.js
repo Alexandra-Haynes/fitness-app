@@ -8,6 +8,11 @@ import {IoMdClose} from 'react-icons/io'
 
 const ExerciseSearch = () => {
   const [searchedEx, setSearchedEx] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const [selectedSuggestion, setSelectedSuggestion] = useState("");
+
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [selectedMuscle, setSelectedMuscle] = useState("");
@@ -55,12 +60,6 @@ const ExerciseSearch = () => {
     setSelectedMuscle(muscle);
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "searchedEx") {
-      setSearchedEx(value);
-    }
-  };
   const handleOpenFilters = () => {
     return setFilterIsOpen(true);
   };
@@ -72,6 +71,52 @@ const ExerciseSearch = () => {
 
   const handleCloseFilters = () => {
     setFilterIsOpen(false);
+  };
+
+ const fetchAutocompleteSuggestions = async (input) => {
+   try {
+     const response = await axios.get(
+       "https://musclewiki.p.rapidapi.com/exercises",
+       {
+         params: {
+           name: input,
+         },
+         headers: {
+           "X-RapidAPI-Key":
+             "7fe9b1ed76msha35f8532c12af1fp1a55d7jsncc554e99d95b",
+           "X-RapidAPI-Host": "musclewiki.p.rapidapi.com",
+         },
+       }
+     );
+
+     const filteredExerciseNames = response.data.filter((exercise) =>
+       exercise.exercise_name.toLowerCase().includes(input.toLowerCase())
+     );
+
+     setSuggestions(filteredExerciseNames);
+   } catch (error) {
+     console.error(error);
+   }
+ };
+
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "searchedEx") {
+      setSearchedEx(value);
+      setSelectedSuggestion(""); // Clear the selected suggestion when typing in the search bar
+      if (value.trim() === "") {
+        setShowSuggestions(false); // Hide the suggestions when the search bar is empty
+      } else {
+        setShowSuggestions(true); // Show the suggestion dropdown when typing
+        fetchAutocompleteSuggestions(value); // Fetch suggestions based on the current input value
+      }
+    }
+  };
+  const handleSelect = (value) => {
+    setSelectedSuggestion(value);
+    setSearchedEx(value); // Set the selected suggestion to the search bar
+    setShowSuggestions(false); // Hide the suggestions
   };
 
   const fetchExercises = async (e) => {
@@ -89,7 +134,7 @@ const ExerciseSearch = () => {
         },
         headers: {
           "X-RapidAPI-Key":
-            "60553b28abmsh3782bc6ef7361bdp1bcb07jsn3b27858a6b5e",
+            "7fe9b1ed76msha35f8532c12af1fp1a55d7jsncc554e99d95b",
           // process.env.RAPID_API_KEY,
           "X-RapidAPI-Host": "musclewiki.p.rapidapi.com",
         },
@@ -125,11 +170,27 @@ const ExerciseSearch = () => {
                 name="searchedEx"
                 value={searchedEx}
                 onChange={handleChange}
+                onFocus={() => setShowSuggestions(true)} // Show suggestions when the input is focused
+                // onBlur={() => setShowSuggestions(false)} // Hide suggestions when the input loses focus
                 placeholder=""
                 className=" p-2 rounded-lg min-w-[300px] bg-slate-300
                placeholder:text-slate-500 border focus:bg-slate-300 focus:text-black"
               />
-              <CiSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-slate-500" />
+              {showSuggestions && (
+                <div className="absolute left-0 
+                w-full bg-slate-100 border border-gray-300 mt-1">
+                  {suggestions.map((suggestion) => (
+                    <div
+                      key={suggestion}
+                      className="p-1 text-[.7rem] cursor-pointer hover:bg-slate-300"
+                      onClick={() => handleSelect(suggestion.exercise_name)}
+                    >
+                      {suggestion.exercise_name}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <CiSearch className="absolute -left-6 top-1/2 transform -translate-y-1/2 text-slate-100" />
             </div>
 
             <button
