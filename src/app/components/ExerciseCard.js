@@ -5,22 +5,27 @@ import { MdOutlineOndemandVideo } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
 import {AiOutlineFolderAdd} from 'react-icons/ai'
 
-
-
 const ExerciseCard = ({ exercise }) => {
   const [expanded, setExpanded] = useState(false);
   
+ const saveExercise = async () => {
+  try {
+    const { id, ...exerciseWithoutId } = exercise; //dont send id to db
+    const response = await axios.post("/api/save-exercise", 
+      exerciseWithoutId,
+    );
 
-  const saveExercise = async () => {
-    try {
-      const { data } = await axios.post("/api/save-exercise", {
-        exercise,
-      });
-      console.log(data.message); // Exercise saved successfully
-    } catch (error) {
-      console.error("Error saving exercise:", error);
+    if (response.data && response.data.message) {
+      console.log(response.data.message);
+    } else if (response.status) {
+      console.error(`Server responded with status code: ${response.status}`);
     }
-  };
+  } catch (error) {
+    console.error("Error saving exercise:", error);
+  }
+
+ };
+
 
   const handleExpand = () => {
     setExpanded(!expanded);

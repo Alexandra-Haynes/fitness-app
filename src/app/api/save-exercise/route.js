@@ -1,24 +1,19 @@
-import dbConnect from "../../lib/db";
+import Exercise from "../../models/Exercise"; 
+import dbConnect from "@/app/lib/db";
+import { NextResponse } from "next/server";
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method Not Allowed" });
-  }
-
+export async function POST(req) {
+  // console.log("this is POST REQUEST");
+  // console.log(req.body); ---> error ReadableStream
+  let body = await req.json();
+  // console.log(body);
+  await dbConnect();
+  
   try {
-    const { exercise } = req.body;
-
-    // Save the exercise to the database
-    const { db } = await dbConnect();
-    const collection = db.collection("saved_exercises");
-    const result = await collection.insertOne(exercise);
-
-    if (result.insertedCount === 1) {
-      return res.status(200).json({ message: "Exercise saved successfully" });
-    } else {
-      return res.status(500).json({ message: "Failed to save exercise" });
-    }
+    const exercise = await Exercise.create(body);
+    return NextResponse.json({ success: true, data: exercise });
   } catch (error) {
-    return res.status(500).json({ message: "Error saving exercise", error });
+    console.log(error);
+    return NextResponse.json({ success: false, error: error.message });
   }
 }
