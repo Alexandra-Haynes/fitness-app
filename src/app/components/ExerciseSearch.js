@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import ExerciseCard from "./ExerciseCard";
+import FrequentExercises from "./FrequentExercises";
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { BsCheck } from "react-icons/bs";
@@ -17,9 +18,14 @@ const ExerciseSearch = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [selectedMuscle, setSelectedMuscle] = useState("");
   const [exercises, setExercises] = useState([]); //exercise_name output
+ 
+    const [searchClicked, setSearchClicked] = useState(false);
+
+
   const [numOfResults, setNumOfResults] = useState(0);
   const [filterIsOpen, setFilterIsOpen] = useState(false);
   const [hideIllustration, setHideIllustration] = useState(false);
+
 
   // Pagination state variables
   const itemsPerPage = 12;
@@ -73,7 +79,14 @@ const ExerciseSearch = () => {
     setFilterIsOpen(false);
   };
 
+const handleSearchClick = () => {
+  setSearchClicked(true);
+  
+};
+
+
  const fetchAutocompleteSuggestions = async (input) => {
+  
    try {
      const response = await axios.get(
        "https://musclewiki.p.rapidapi.com/exercises",
@@ -164,6 +177,7 @@ const ExerciseSearch = () => {
   };
 
   const fetchExercises = async (e) => {
+    handleSearchClick();
     
     setHideIllustration(true);
     e.preventDefault();
@@ -205,8 +219,7 @@ const ExerciseSearch = () => {
         className="w-[80%] flex flex-col-reverse md:flex-row-reverse items-center justify-center 
        px-2 "
       >
-
-{/* _________________________________________________SEARCH BAR___________________________________ */}
+        {/* _________________________________________________SEARCH BAR___________________________________ */}
 
         <div className=" ">
           <div className="flex flex-row items-center justify-start gap-4">
@@ -224,7 +237,7 @@ const ExerciseSearch = () => {
                placeholder:text-slate-500 border focus:bg-slate-300 focus:text-black"
               />
 
-{/* _________________________________________________SUGGESTIONS___________________________________ */}
+              {/* _________________________________________________SUGGESTIONS___________________________________ */}
 
               {showSuggestions && (
                 <div
@@ -403,6 +416,17 @@ const ExerciseSearch = () => {
           <ExerciseCard exercise={exercise} />
         ))}
       </ul>
+      {/* _________________________________________________FREQ EXERCISE__________________________________ */}
+
+      
+        {!searchClicked && (
+          <FrequentExercises
+            
+            
+          />
+        )}
+       
+     
 
       {/* _________________________________________________PAGINATION___________________________________ */}
 
