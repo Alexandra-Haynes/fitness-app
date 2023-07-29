@@ -4,6 +4,7 @@ import BodyFatCalculator from '../components/BobyFatCalculator'
 import Image from 'next/image';
 import BodyMassIndex from '../components/BodyMassIndex';
 import BMRCalculator from '../components/BMRCalculator';
+import IdealBodyWeightCalculator from '../components/IdealBodyWeightCalculator';
 
 const Calculator = () => {
   return (
@@ -21,7 +22,8 @@ const Calculator = () => {
       />
       {/* <BodyFatCalculator /> */}
       {/* <BodyMassIndex /> */}
-      <BMRCalculator />
+      {/* <BMRCalculator /> */}
+      <IdealBodyWeightCalculator />
     </div>
   );
 }
