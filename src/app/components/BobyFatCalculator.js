@@ -99,9 +99,10 @@ function BodyFatCalculator() {
             type="text"
             value={height}
             onChange={(e) => setHeight(e.target.value)}
-            className="text-xl ml-2 font-mono w-[80px] text-center
+            className="text-xl ml-2 mr-2 font-mono w-[80px] text-center
             focus:bg-highlights bg-highlights/80 py-1 rounded-full"
           />
+          in
         </label>
         <label className="font-semibold">
           Weight:
@@ -109,9 +110,10 @@ function BodyFatCalculator() {
             type="text"
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
-            className="text-xl ml-2 font-mono w-[80px] text-center
+            className="text-xl ml-2 mr-2 font-mono w-[80px] text-center
             focus:bg-highlights bg-highlights/80 py-1 rounded-full"
           />
+          lbs
         </label>
         <label className="font-semibold">
           Age:
@@ -131,8 +133,13 @@ function BodyFatCalculator() {
           Calculate Body Fat
         </button>
       </form>
-      {loading && <p>Loading...</p>}
-      {error && <p>An error has occurred: {error}</p>}
+      {loading && <div className=" flex flex-col items-center justify-center mx-auto h-[300px]">
+        <p className="text-primary text-xl text-center">Loading ...</p>
+        <video src='/assets/loadingIcon.mp4' autoPlay muted
+        className="h-[50px] w-auto"></video>
+        
+        </div>}
+      {error && <p className="text-xl text-center">An error has occurred: {error}</p>}
       {data && (
         <div
           className="bg-white border w-[90%] max-w-[800px] mx-auto 
