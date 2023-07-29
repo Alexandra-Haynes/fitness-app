@@ -3,6 +3,7 @@ import React from 'react'
 import BodyFatCalculator from '../components/BobyFatCalculator'
 import Image from 'next/image';
 import BodyMassIndex from '../components/BodyMassIndex';
+import BMRCalculator from '../components/BMRCalculator';
 
 const Calculator = () => {
   return (
@@ -19,7 +20,8 @@ const Calculator = () => {
         className="absolute bottom-4 -right-24 -z-10"
       />
       {/* <BodyFatCalculator /> */}
-      <BodyMassIndex />
+      {/* <BodyMassIndex /> */}
+      <BMRCalculator />
     </div>
   );
 }
