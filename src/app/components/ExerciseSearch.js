@@ -272,7 +272,8 @@ const handleSearchClick = () => {
                   ))}
                 </div>
               )}
-              <CiSearch className="absolute -left-6 top-1/2 transform -translate-y-1/2 text-slate-100" />
+              <CiSearch className="absolute right-2 
+              top-1/2 transform -translate-y-1/2 text-slate-500" />
             </div>
 
             {/* _________________________________________________FILTER___________________________________ */}
