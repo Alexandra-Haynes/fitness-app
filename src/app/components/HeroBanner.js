@@ -1,30 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Router } from "next/router";
 import { useSession } from "next-auth/react";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import MotivationalQuote from "./MotivationalQuote";
 
 const HeroBanner = ({ navigateToExercises }) => {
   const { data: session } = useSession();
-  console.log("session", session);
+  const [isMounted, setIsMounted] = useState(false);
+  // console.log("session", session);
   const isLoggedIn = !!session?.user;
-   
-
-  const [isRocketAnimating, setRocketAnimating] = useState(false);
-   const [isMounted, setIsMounted] = useState(false);
-
-    const handleTakeoff = () => {
-      setRocketAnimating(true);
-
-      setTimeout(() => {
-        setRocketAnimating(false);
-        // Navigate to the next page after a delay
-        setTimeout(() => {
-          navigateToExercises();
-        }, 2000);
-      }, 2000);
-    };
 
   return (
     <>
@@ -58,19 +41,10 @@ const HeroBanner = ({ navigateToExercises }) => {
           className="bg-secondary text-black cursor-pointer hover:translate-y-1 hover:bg-highlights
         font-semibold mx-12 mt-12 py-4 px-6 text-xl rounded-full
          transition-all duration-300 animate-slide-in-left"
-          onClick={handleTakeoff}
         >
           <Link href="/explore-exercises">Explore exercises </Link>
         </div>
-        {/* <div
-          className={`relative 
-         mt-24 mr-4 self-end 
-          ${isRocketAnimating ? "animate-rocket-out" : "animate-bounce-slow"}`}
-          id="rocket"
-        >
-          <Image src="/assets/rocket.png" 
-          width={60} height={60} alt='rocket illustration'/>
-        </div> */}
+        
       </div>
       {/* <MotivationalQuote /> */}
     </>

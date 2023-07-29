@@ -23,7 +23,7 @@ module.exports = {
         "slide-in-left": "slideInLeft 1s linear",
         "slide-in-right": "slideInRight 1s linear",
         "slide-in-top": "slideInTop 1s linear",
-        "rocket-out": "slideOut 1s ease-in-out forwards",
+        "rocket-out": "slideOut 1s ease-in forwards",
       },
       keyframes: {
         slideInLeft: {
@@ -55,7 +55,9 @@ module.exports = {
             transform: "translateY(0)",
           },
           "100%": {
-            transform: "translateY(-1200px)",
+            transform: "translateY(-1800px)",
+            opacity: "0%"
+            
           },
         },
       },

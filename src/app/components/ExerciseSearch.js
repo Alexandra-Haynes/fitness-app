@@ -24,7 +24,8 @@ const ExerciseSearch = () => {
 
   const [numOfResults, setNumOfResults] = useState(0);
   const [filterIsOpen, setFilterIsOpen] = useState(false);
-  const [hideIllustration, setHideIllustration] = useState(false);
+ const [isRocketAnimating, setRocketAnimating] = useState(false);
+ const [displayRocket, setDisplayRocket] = useState(true)
 
 
   // Pagination state variables
@@ -178,8 +179,7 @@ const handleSearchClick = () => {
 
   const fetchExercises = async (e) => {
     handleSearchClick();
-    
-    setHideIllustration(true);
+    handleRocketTakeoff()
     e.preventDefault();
     let url = "https://musclewiki.p.rapidapi.com/exercises";
     try {
@@ -206,12 +206,25 @@ const handleSearchClick = () => {
     }
   };
 
+
+ 
+
+ const handleRocketTakeoff = () => {
+   setRocketAnimating(true);
+   setTimeout(() => {
+     setRocketAnimating(false);
+     setDisplayRocket(false)
+   }, 2000);
+ };
+
+
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentExercises = exercises.slice(startIndex, endIndex);
 
   return (
-    <section className="h-fit md:w-[80%] pt-12  mx-auto flex flex-col items-center justify-center">
+    <section className="relative h-fit md:w-[80%] pt-12  mx-auto flex flex-col items-center justify-center">
       <h1 className="text-gray-200 text-4xl text-center py-12 pt-24">
         Search exercises
       </h1>
@@ -398,16 +411,6 @@ const handleSearchClick = () => {
             Search
           </button>
         </div>
-        {!hideIllustration && (
-          <div className="absolute bottom-4 right-0 z-10">
-            <Image
-              src="/assets/workout.png"
-              width={180}
-              height={180}
-              alt="fitness icon"
-            />
-          </div>
-        )}
       </div>
       {/* _________________________________________________RESULTS___________________________________ */}
 
@@ -418,15 +421,24 @@ const handleSearchClick = () => {
       </ul>
       {/* _________________________________________________FREQ EXERCISE__________________________________ */}
 
-      
-        {!searchClicked && (
-          <FrequentExercises
-            
-            
+      {!searchClicked && <FrequentExercises />}
+
+      {/* _____________________________________ROCKET_________________________________ */}
+      {displayRocket && (
+        <div
+          className={`absolute -bottom-16
+         mt-12 mr-4 self-end 
+          ${isRocketAnimating ? "animate-rocket-out" : "animate-bounce-slow"}`}
+          id="rocket"
+        >
+          <Image
+            src="/assets/rocket.png"
+            width={40}
+            height={40}
+            alt="rocket illustration"
           />
-        )}
-       
-     
+        </div>
+      )}
 
       {/* _________________________________________________PAGINATION___________________________________ */}
 
@@ -437,10 +449,10 @@ const handleSearchClick = () => {
         ).map((pageNumber) => (
           <button
             key={pageNumber}
-            className={`px-4 py-2 rounded-full mx-1 hover:scale-105 ${
+            className={`px-3 py-1 rounded-full mx-1 my-2 shadow-lg hover:scale-105 ${
               pageNumber === currentPage
-                ? "bg-secondary text-white"
-                : "bg-gray-200 text-gray-800"
+                ? "bg-slate-400  scale-110"
+                : "bg-slate-500 text-gray-800"
             }`}
             onClick={() => setCurrentPage(pageNumber)}
           >
