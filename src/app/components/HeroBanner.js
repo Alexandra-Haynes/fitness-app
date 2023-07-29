@@ -6,8 +6,8 @@ import MotivationalQuote from "./MotivationalQuote";
 const HeroBanner = ({ navigateToExercises }) => {
   const { data: session } = useSession();
   const [isMounted, setIsMounted] = useState(false);
-  // console.log("session", session);
-  const isLoggedIn = !!session?.user;
+
+  const isLoggedIn = session?.user;
 
   return (
     <>
@@ -17,34 +17,48 @@ const HeroBanner = ({ navigateToExercises }) => {
       >
         {isLoggedIn ? (
           <div>
-          <h2 className="text-white font-semibold text-2xl  px-12">
-           Welcome back! {session.user.username}
-          </h2>
-
-</div>
+            <h2
+              className={`text-white font-semibold text-2xl px-12
+           ${isMounted ? "" : "animate-slide-in-left"}
+          `}
+            >
+              Welcome back! {session.user.username}
+            </h2>
+          </div>
         ) : (
-          <h2 className="text-white font-semibold text-2xl  px-12">
-            My Workouts
+          <h2
+            className={`text-white font-semibold text-2xl px-12
+           ${isMounted ? "" : "animate-slide-in-left"}
+          `}
+          >
+            Get stronger
           </h2>
         )}
 
-        <h1
-          className={`text-highlights font-bold text-7xl  px-12 
-      ${isMounted ? "" : "animate-slide-in-left"}
+        <p
+          className={`text-highlights font-bold text-7xl px-12 
+      ${isMounted ? "" : "animate-slide-in-right"}
       `}
         >
-          Get further... <br />
+          Get further
+         
+        </p>
+        <p
+          className={`text-highlights font-bold text-6xl  px-12 
+      ${isMounted ? "" : "animate-slide-in-right"}
+      `}
+        >
           Get ahead
-        </h1>
+        
+        </p>
 
         <div
           className="bg-secondary text-black cursor-pointer hover:translate-y-1 hover:bg-highlights
-        font-semibold mx-12 mt-12 py-4 px-6 text-xl rounded-full
+        font-semibold mx-12 mt-12 py-3 px-6 text-xl rounded-full
          transition-all duration-300 animate-slide-in-left"
         >
           <Link href="/explore-exercises">Explore exercises </Link>
         </div>
-        
       </div>
       {/* <MotivationalQuote /> */}
     </>
