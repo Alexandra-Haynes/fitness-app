@@ -77,16 +77,16 @@ const NavBar = () => {
           </li>
           <li onClick={closeNavBar}>
             <Link
-              href={"/about"}
+              href={"/progress"}
               className="text-xl 
               flex flex-row items-center justify-center gap-2 "
             >
               {" "}
               <BsBookshelf />
-              explore.
+              progress.
             </Link>
           </li>
-          <li onClick={closeNavBar}>
+          {/* <li onClick={closeNavBar}>
             <Link
               href={"/nutrition"}
               className="text-xl 
@@ -97,27 +97,27 @@ const NavBar = () => {
               <CiApple />
               nutrition.
             </Link>
-          </li>
+          </li> */}
           <li onClick={closeNavBar}>
             <Link
-              href={"/saved"}
+              href={"/account"}
               className="text-xl  flex flex-row 
               items-center justify-center gap-2
             "
             >
               {" "}
               <AiOutlineHeart />
-              saved.
+              account.
             </Link>
           </li>
           <li onClick={closeNavBar}>
             <Link
-              href={"/calories-burned"}
+              href={"/calculator"}
               className="text-xl  flex flex-row items-center
                justify-center gap-2
             "
             >
-              <AiOutlineCalculator /> calorie calculator.
+              <AiOutlineCalculator />calculator.
             </Link>
           </li>
           <li onClick={closeNavBar}>
