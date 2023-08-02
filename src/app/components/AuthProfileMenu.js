@@ -4,6 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import React from 'react'
 import Link from 'next/link'
 import {BiSolidUserCheck} from 'react-icons/bi'
+import UserAvatar from "./UserAvatar";
 
 const AuthProfileMenu = () => {
 const { data: session } = useSession();
@@ -26,6 +27,7 @@ const isLoggedIn = !!session?.user;
 
       {isLoggedIn && (
         <ul className="flex flex-ro items-center justify-center gap-2">
+          <li> <UserAvatar avatarUrl={session.user.avatar}/> </li>
           <li className="flex flex-row gap-1 items-center justify-center p-2  px-4 rounded-sm
           border-l-highlights border-r-secondary border-t-highlights border-b-secondary border">
             <BiSolidUserCheck /> {session.user.email} 
