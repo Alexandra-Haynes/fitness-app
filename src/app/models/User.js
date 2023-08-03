@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
-  avatar: { type: String, default: "default-avatar.png" }, // Default avatar URL
+  avatarPath: { type: String, default: "default-avatar.png" }, // Default avatar URL
 
   savedExercises: [{ type: mongoose.Schema.Types.ObjectId, ref: "Exercise" }],
 });
