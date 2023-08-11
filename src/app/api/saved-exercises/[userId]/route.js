@@ -5,12 +5,12 @@ import User from "../../../models/User";
 
 export async function GET(req, { params }) {
   await dbConnect();
-  console.log("this is GET");
+  // console.log("this is GET");
   const userId = params.userId;
 
   try {
     const user = await User.findOne({ _id: userId });
-    console.log("User found in db");
+    // console.log("User found in db");
     if (!user) throw new Error("User not found");
 
     const savedExerciseIds = user.savedExercises;
