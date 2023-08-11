@@ -126,7 +126,7 @@ const FrequentExercises = () => {
       <h2 className="text-slate-400 py-4">Frequently searched:</h2>
       <ul>
         {FrequentExercisesData.map((exercise) => (
-          <ExerciseCard exercise={exercise} />
+          <ExerciseCard key={exercise.id}  exercise={exercise} />
         ))}
       </ul>
     </div>
