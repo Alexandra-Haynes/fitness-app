@@ -1,31 +1,44 @@
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import axios from "axios";
 import Image from "next/image";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
-import {AiOutlineFolderAdd} from 'react-icons/ai'
+import { AiOutlineFolderAdd } from "react-icons/ai";
 
 const ExerciseCard = ({ exercise }) => {
+  const { data: session } = useSession();
   const [expanded, setExpanded] = useState(false);
-  
- const saveExercise = async () => {
-  try {
-    const { id, ...exerciseWithoutId } = exercise; //dont send id to db
-    const response = await axios.post("/api/save-exercise", 
-      exerciseWithoutId,
-    );
 
-    if (response.data && response.data.message) {
-      console.log(response.data.message);
-    } else if (response.status) {
-      console.error(`Server responded with status code: ${response.status}`);
+  // if (session) {
+  // let userId = session.user._id;
+  // console.log(userId)
+  // }
+
+  const saveExercise = async () => {
+    try {
+      const { id, ...exerciseWithoutId } = exercise; //dont send id to db
+      if (session && session.user) {
+        let userId = session.user._id;
+
+        const postData = {
+          userId,
+          exercise: exerciseWithoutId,
+        };
+        const response = await axios.post("/api/save-exercise", postData);
+
+        if (response.data && response.data.message) {
+          console.log(response.data.message);
+        } else if (response.status) {
+          console.log(
+            `Server responded with status code: ${response.status}`
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Error saving exercise:", error);
     }
-  } catch (error) {
-    console.error("Error saving exercise:", error);
-  }
-
- };
-
+  };
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -42,16 +55,14 @@ const ExerciseCard = ({ exercise }) => {
   const formatTarget = (targetObject) => {
     const primaryTargets = targetObject.Primary[0];
     const secondaryTargets = targetObject.Secondary;
-    
+
     // if (secondaryTargets) {
     //   return `Primary Target: ${primaryTargets}\nSecondary Target: ${secondaryTargets}`;
     // } else {
     //   return `Target: ${primaryTargets}`;
     // }
-    return primaryTargets
+    return primaryTargets;
   };
-
-  
 
   return (
     <div

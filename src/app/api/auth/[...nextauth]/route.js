@@ -34,6 +34,7 @@ console.log("User Data:", user);
           const accessToken = signJwtToken(currentUser, { expiresIn: "3d" });
 
           return {
+            //return user data
             ...currentUser,
             accessToken,
           };
@@ -45,6 +46,7 @@ console.log("User Data:", user);
     signIn: "/login",
   },
   callbacks: {
+    //saving _id to token
     async jwt({ token, user }) {
       if (user) {
         token.accessToken = user.accessToken;
@@ -56,6 +58,7 @@ console.log("User Data:", user);
       return token;
     },
     async session({ session, token }) {
+      //extracting the _if from token and adding it to session object
       if (token) {
         session.user._id = token._id;
         // session.user._id = token.userId;
