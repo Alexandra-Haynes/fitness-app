@@ -10,13 +10,17 @@ export async function POST(req) {
   console.log("this is POST REQUEST");
   // console.log(req.body); ---> error ReadableStream
   let body = await req.json();
-  console.log(body);
+  // console.log(body);
 
-  const { userId, exerciseData } = body
+  // const { userId, exerciseData } = body
+  const userId = body.userId
+  const exerciseData = body.exercise
 
   try {
     //create exercise
     const exercise = await Exercise.create(exerciseData);
+    console.log("Received exerciseData:", exerciseData);
+
     // log the success message
     console.log(`Exercise with id ${exercise._id} added`);
     //add to user's savedExercise []
