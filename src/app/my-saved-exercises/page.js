@@ -3,10 +3,11 @@
 import { useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import SavedExerciseCard from "../components/SavedExerciseCard";
+import ExerciseCardsSkeleton from "../components/ExerciseCardsSkeleton";
 
 function SavedExercises() {
   const { data: session } = useSession();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [exercises, setExercises] = useState([]);
 
   const fetchExercises = async () => {
@@ -44,16 +45,26 @@ function SavedExercises() {
         {" "}
         Your saved exercises in one place{" "}
       </h1>
-{loading ? (
-          // Replace this with your video component or any loading spinner
-          <div>Loading...</div> 
-        ) : (
-
-      <div className="max-w-[300px] mx-auto">
-        {exercises.map((exercise) => (
-          <SavedExerciseCard key={exercise._id} exercise={exercise} />
-        ))}
-      </div>
+      {loading ? (
+        // Replace this with your video component or any loading spinner
+        // <div className=" flex flex-col items-center justify-center mx-auto h-[300px]">
+        //   <p className="text-primary text-xl text-center">Loading ...</p>
+        //   <video
+        //     src="/assets/loadingIcon.mp4"
+        //     autoPlay
+        //     muted
+        //     className="h-[50px] w-auto"
+        //   ></video>
+        // </div>
+        <div className="w-[300px]">
+          <ExerciseCardsSkeleton />
+        </div>
+      ) : (
+        <div className="max-w-[300px] mx-auto">
+          {exercises.map((exercise) => (
+            <SavedExerciseCard key={exercise._id} exercise={exercise} />
+          ))}
+        </div>
       )}
     </section>
   );
