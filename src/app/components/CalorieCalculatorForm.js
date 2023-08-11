@@ -121,6 +121,7 @@ const CalorieCalculatorForm = () => {
             width={80}
             height={80}
             className=""
+            alt='No result'
           />
           <p
             className="w-[80%]  text-center  
