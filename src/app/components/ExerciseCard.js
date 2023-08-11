@@ -4,11 +4,16 @@ import axios from "axios";
 import Image from "next/image";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
-import { AiOutlineFolderAdd } from "react-icons/ai";
+import { AiOutlineFolderAdd} from "react-icons/ai";
+import {MdOutlineBookmarkAdded} from 'react-icons/md'
 
 const ExerciseCard = ({ exercise }) => {
   const { data: session } = useSession();
   const [expanded, setExpanded] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
+
+
 
   // if (session) {
   // let userId = session.user._id;
@@ -29,10 +34,22 @@ const ExerciseCard = ({ exercise }) => {
 
         if (response.data && response.data.message) {
           console.log(response.data.message);
+          setIsSaved(true);
+          setSuccessMessage("Exercise successfully saved!");
+          //clear popup after 2sec
+          setTimeout(() => {
+            setSuccessMessage("");
+          }, 2000);
         } else if (response.status) {
           console.log(
             `Server responded with status code: ${response.status}`
           );
+          setIsSaved(true);
+          setSuccessMessage("Exercise saved!");
+          //clear popup after 2sec
+            setTimeout(() => {
+              setSuccessMessage("");
+            }, 2000);
         }
       }
     } catch (error) {
@@ -117,18 +134,26 @@ const ExerciseCard = ({ exercise }) => {
                     />
                   )}
                 </button>
+
                 <button
                   className=" cursor-pointer "
                   onClick={saveExercise}
                   title="Save exercise to your list"
                 >
-                  <AiOutlineFolderAdd className="text-2xl hover:scale-110" />
+                 
+                  {isSaved ? (
+                    <MdOutlineBookmarkAdded className="text-2xl text-green-700" />
+                  ) : (
+                    <AiOutlineFolderAdd className="text-2xl hover:scale-110" />
+                  )}
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* _________________Expanded_______________ */}
       {expanded && (
         <div className=" pt-12 p-2 ">
           <div className="flex flex-col gap-2 items-center justify-between">
@@ -158,6 +183,14 @@ const ExerciseCard = ({ exercise }) => {
           </div>
         </div>
       )}
+
+      {/* _________________Message popup exercise saved_______________ */}
+
+      <div className="bg-white absolute -top-12 right-0 animate-slide-in-left">
+        {successMessage && (
+          <div className="p-2  text-green-500">{successMessage}</div>
+        )}
+      </div>
     </div>
   );
 };

@@ -19,10 +19,10 @@ export async function POST(req) {
   try {
     //create exercise
     const exercise = await Exercise.create(exerciseData);
-    console.log("Received exerciseData:", exerciseData);
+    // console.log("Received exerciseData:", exerciseData);
 
     // log the success message
-    console.log(`Exercise with id ${exercise._id} added`);
+    console.log(`SUCCESS! Exercise with id ${exercise._id} added`);
     //add to user's savedExercise []
     const updatedUser = await User.findByIdAndUpdate(
       userId,
