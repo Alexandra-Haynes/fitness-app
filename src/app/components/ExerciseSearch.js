@@ -5,7 +5,8 @@ import FrequentExercises from "./FrequentExercises";
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { BsCheck } from "react-icons/bs";
-import {IoMdClose} from 'react-icons/io'
+import { IoMdClose } from "react-icons/io";
+import {AiFillCaretRight, AiFillCaretLeft} from 'react-icons/ai'
 
 const ExerciseSearch = () => {
   const [searchedEx, setSearchedEx] = useState("");
@@ -18,15 +19,13 @@ const ExerciseSearch = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [selectedMuscle, setSelectedMuscle] = useState("");
   const [exercises, setExercises] = useState([]); //exercise_name output
- 
-    const [searchClicked, setSearchClicked] = useState(false);
 
+  const [searchClicked, setSearchClicked] = useState(false);
 
   const [numOfResults, setNumOfResults] = useState(0);
   const [filterIsOpen, setFilterIsOpen] = useState(false);
- const [isRocketAnimating, setRocketAnimating] = useState(false);
- const [displayRocket, setDisplayRocket] = useState(true)
-
+  const [isRocketAnimating, setRocketAnimating] = useState(false);
+  const [displayRocket, setDisplayRocket] = useState(true);
 
   // Pagination state variables
   const itemsPerPage = 12;
@@ -80,52 +79,45 @@ const ExerciseSearch = () => {
     setFilterIsOpen(false);
   };
 
-const handleSearchClick = () => {
-  setSearchClicked(true);
-  
-};
+  const handleSearchClick = () => {
+    setSearchClicked(true);
+  };
 
+  const fetchAutocompleteSuggestions = async (input) => {
+    try {
+      const response = await axios.get(
+        "https://musclewiki.p.rapidapi.com/exercises",
+        {
+          params: {
+            name: input,
+          },
+          headers: {
+            "X-RapidAPI-Key":
+              "7fe9b1ed76msha35f8532c12af1fp1a55d7jsncc554e99d95b",
+            "X-RapidAPI-Host": "musclewiki.p.rapidapi.com",
+          },
+        }
+      );
 
- const fetchAutocompleteSuggestions = async (input) => {
-  
-   try {
-     const response = await axios.get(
-       "https://musclewiki.p.rapidapi.com/exercises",
-       {
-         params: {
-           name: input,
-         },
-         headers: {
-           "X-RapidAPI-Key":
-             "7fe9b1ed76msha35f8532c12af1fp1a55d7jsncc554e99d95b",
-           "X-RapidAPI-Host": "musclewiki.p.rapidapi.com",
-         },
-       }
-     );
+      const filteredExerciseNames = response.data.filter((exercise) =>
+        exercise.exercise_name.toLowerCase().includes(input.toLowerCase())
+      );
 
-     const filteredExerciseNames = response.data.filter((exercise) =>
-       exercise.exercise_name.toLowerCase().includes(input.toLowerCase())
-     );
+      let suggestionsWithCloseButton = filteredExerciseNames;
 
-     
-    let suggestionsWithCloseButton = filteredExerciseNames;
+      if (input.trim() !== "") {
+        // Add the "Close Suggestions" option when the input is not empty
+        suggestionsWithCloseButton = [
+          { exercise_name: "Close Suggestions" },
+          ...filteredExerciseNames,
+        ];
+      }
 
-    if (input.trim() !== "") {
-      // Add the "Close Suggestions" option when the input is not empty
-      suggestionsWithCloseButton = [
-        { exercise_name: "Close Suggestions" },
-        ...filteredExerciseNames,
-      ];
+      setSuggestions(suggestionsWithCloseButton);
+    } catch (error) {
+      console.error(error);
     }
-
-    setSuggestions(suggestionsWithCloseButton);
-
-     
-   } catch (error) {
-     console.error(error);
-   }
- };
-
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -141,13 +133,13 @@ const handleSearchClick = () => {
     }
   };
   const handleSelect = (value) => {
-   if (value === "Close Suggestions") {
-     setShowSuggestions(false);
-   } else {
-     setSelectedSuggestion(value);
-     setSearchedEx(value);
-     setShowSuggestions(false);
-   }
+    if (value === "Close Suggestions") {
+      setShowSuggestions(false);
+    } else {
+      setSelectedSuggestion(value);
+      setSearchedEx(value);
+      setShowSuggestions(false);
+    }
   };
 
   const fetchAllExercises = async () => {
@@ -179,7 +171,7 @@ const handleSearchClick = () => {
 
   const fetchExercises = async (e) => {
     handleSearchClick();
-    handleRocketTakeoff()
+    handleRocketTakeoff();
     e.preventDefault();
     let url = "https://musclewiki.p.rapidapi.com/exercises";
     try {
@@ -206,18 +198,13 @@ const handleSearchClick = () => {
     }
   };
 
-
- 
-
- const handleRocketTakeoff = () => {
-   setRocketAnimating(true);
-   setTimeout(() => {
-     setRocketAnimating(false);
-     setDisplayRocket(false)
-   }, 2000);
- };
-
-
+  const handleRocketTakeoff = () => {
+    setRocketAnimating(true);
+    setTimeout(() => {
+      setRocketAnimating(false);
+      setDisplayRocket(false);
+    }, 2000);
+  };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -272,8 +259,10 @@ const handleSearchClick = () => {
                   ))}
                 </div>
               )}
-              <CiSearch className="absolute right-2 
-              top-1/2 transform -translate-y-1/2 text-slate-500" />
+              <CiSearch
+                className="absolute right-2 
+              top-1/2 transform -translate-y-1/2 text-slate-500"
+              />
             </div>
 
             {/* _________________________________________________FILTER___________________________________ */}
@@ -444,22 +433,46 @@ const handleSearchClick = () => {
       {/* _________________________________________________PAGINATION___________________________________ */}
 
       <div className="flex justify-center my-4">
+        {currentPage > 1 && (
+          <button
+            className="px-3 py-1  mx-1 my-2   "
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            <AiFillCaretLeft className="hover:text-slate-700 hover:scale-120" />
+          </button>
+        )}
         {Array.from(
           { length: Math.ceil(exercises.length / itemsPerPage) },
           (_, index) => index + 1
-        ).map((pageNumber) => (
+        )
+          .filter(
+            (pageNumber) =>
+              pageNumber === currentPage ||
+              pageNumber === currentPage - 1 ||
+              pageNumber === currentPage + 1
+          )
+          .map((pageNumber) => (
+            <button
+              key={pageNumber}
+              className={`px-3 py-1 rounded-full mx-1 my-2 shadow-lg hover:scale-105 ${
+                pageNumber === currentPage
+                  ? "bg-slate-400  scale-110"
+                  : "bg-slate-500 text-gray-800"
+              }`}
+              onClick={() => setCurrentPage(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          ))}
+
+        {currentPage < Math.ceil(exercises.length / itemsPerPage) && (
           <button
-            key={pageNumber}
-            className={`px-3 py-1 rounded-full mx-1 my-2 shadow-lg hover:scale-105 ${
-              pageNumber === currentPage
-                ? "bg-slate-400  scale-110"
-                : "bg-slate-500 text-gray-800"
-            }`}
-            onClick={() => setCurrentPage(pageNumber)}
+            className="px-3 py-1 mx-1 my-2  "
+            onClick={() => setCurrentPage(currentPage + 1)}
           >
-            {pageNumber}
+            <AiFillCaretRight className="hover:text-slate-700 hover:scale-120" />
           </button>
-        ))}
+        )}
       </div>
     </section>
   );
