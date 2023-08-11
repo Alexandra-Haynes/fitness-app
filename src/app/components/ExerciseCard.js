@@ -113,7 +113,7 @@ const ExerciseCard = ({ exercise }) => {
                   />
                 </div>
 
-                <h3 className=" text-black font-semibold uppercase">
+                <h3 className=" text-black font-semibold uppercase max-w-[260px]">
                   {exercise.exercise_name}
                 </h3>
               </div>
