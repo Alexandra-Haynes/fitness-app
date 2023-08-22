@@ -1,6 +1,40 @@
 'use client'
 import React, { useState } from "react";
 
+
+const workoutIcons = {
+  strength: "/assets/strength.png",
+  cardio: "/assets/cardio.png",
+  walk: "/assets/walking.png",
+  run: "/assets/running.png",
+  hike: "/assets/hiking.png",
+  bike: "/assets/bicycle.png",
+  swim: "/assets/swim.png",
+  rowing: "/assets/rowing.png",
+  hiit: "/assets/hiit.png",
+};
+
+const workoutNames = {
+  strength: "Strength",
+  cardio: "Cardio",
+  walk: "Walk",
+  run: "Run",
+  hike: "Hike",
+  bike: "Bike",
+  swim: "Swim",
+  rowing: "Rowing",
+  hiit: "HIIT",
+};
+
+const WorkoutIcon = ({ type }) => (
+  <img
+    src={workoutIcons[type]}
+    alt={`${workoutNames[type]} Icon`}
+    width={32}
+    height={32}
+  />
+);
+
 function WorkoutForm({ onSubmit }) {
   const [workoutType, setWorkoutType] = useState("strength");
   const [exercises, setExercises] = useState([
@@ -39,30 +73,40 @@ function WorkoutForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-start justify-center
+    gap-8 text-slate-500 px-4"
+    >
       <div>
-        <div>
-          <label className="block mb-2">Date</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="p-2 border rounded w-full"
-          />
+        <label className="block mb-2">Date</label>
+        <input
+          type="date"
+          value={date}
+          max={new Date().toISOString().split("T")[0]} // Today's date as the maximum value
+          onChange={(e) => setDate(e.target.value)}
+          className="p-3 border-2 border-highlights rounded-lg
+             hover:bg-highlights/20 focus:bg-blue-200
+              active:border-highlights w-[210px]"
+        />
+      </div>
+
+      {/* ____________workout type______________________________- */}
+      <div>
+        <label className="block w-full mb-2">Workout Type</label>
+        <div className="grid grid-cols-3">
+         { Object.keys(workoutIcons).map((workout) => (
+          <div
+            key={workout}
+            onClick={() => setWorkoutType(workout)}
+            className={`flex flex-row items-center justify-center gap-2 p-2 border rounded w-[120px] my-1 cursor-pointer ${
+              workoutType === workout ? "bg-yellow-200 text-black" : ""
+            }`}
+          >
+            <WorkoutIcon type={workout} /> {workoutNames[workout]}
+          </div>
+          ))}
         </div>
-        <label className="block mb-2">Workout Type</label>
-        <select
-          value={workoutType}
-          onChange={(e) => setWorkoutType(e.target.value)}
-          className="p-2 border rounded"
-        >
-          <option value="strength">Strength</option>
-          <option value="cardio">Cardio</option>
-          <option value="run">Run</option>
-          <option value="walk">Walk</option>
-          <option value="swim">Swim</option>
-          {/* Add more types if needed */}
-        </select>
       </div>
 
       {/* ______________ADD exercises____________________ */}
@@ -104,41 +148,43 @@ function WorkoutForm({ onSubmit }) {
           onClick={() =>
             setExercises([...exercises, { name: "", reps: "", weight: "" }])
           }
-          className="px-2 py-1 bg-gray-200 rounded"
+          className="px-2 py-1 bg-secondary
+           text-white rounded hover:translate-y-1 hover:shadow-lg shadow-md transition-all ease-in-out"
         >
           + Add Exercise
         </button>
       </div>
 
-      <div>
-        <label className="block mb-2">Calories Burned</label>
-        <input
-          type="number"
-          value={calories}
-          onChange={(e) => setCalories(e.target.value)}
-          className="p-2 border rounded w-full"
-          placeholder="Enter calories burned"
-        />
+      <div className="flex flex-row items-center justify-between gap-4">
+        <div>
+          <label className="block mb-2">Calories Burned</label>
+          <input
+            type="number"
+            value={calories}
+            onChange={(e) => setCalories(e.target.value)}
+            className="p-2 border rounded w-full"
+            placeholder="Enter calories burned"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-2">Heart Rate</label>
+          <input
+            type="number"
+            value={heartRate}
+            onChange={(e) => setHeartRate(e.target.value)}
+            className="p-2 border rounded w-full"
+            placeholder="Enter heart rate"
+          />
+        </div>
       </div>
 
       <div>
-        <label className="block mb-2">Heart Rate</label>
-        <input
-          type="number"
-          value={heartRate}
-          onChange={(e) => setHeartRate(e.target.value)}
-          className="p-2 border rounded w-full"
-          placeholder="Enter heart rate"
-        />
-      </div>
-
-      <div>
-        <label className="block mb-2">Add any additional notes</label>
-        <input
-          type="text"
+        <label className="block mb-2">Notes</label>
+        <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="p-2 border rounded w-full"
+          className="p-2 border rounded w-[400px] h-24 resize-none" // Added `resize-none` to disable resizing
           placeholder="About this workout"
         />
       </div>
@@ -146,7 +192,7 @@ function WorkoutForm({ onSubmit }) {
       <div>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="px-4 py-2 bg-primary shadow-md hover:shadow-xl hover:translate-y-1 text-white rounded"
         >
           Submit
         </button>
