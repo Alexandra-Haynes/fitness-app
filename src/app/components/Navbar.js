@@ -9,7 +9,6 @@ import { MdClose } from "react-icons/md";
 import { LiaHomeSolid } from "react-icons/lia";
 import { AiOutlineHeart, AiOutlineCalculator } from "react-icons/ai";
 import { BsBookshelf } from "react-icons/bs";
-import { CiApple } from "react-icons/ci";
 import { CgGym } from "react-icons/cg";
 import AuthProfileMenu from "./AuthProfileMenu";
 
@@ -53,11 +52,11 @@ const NavBar = () => {
       <nav
         className={`${
           navIsVisible
-            ? "left-0 bg-slate-800"
+            ? "right-0 bg-slate-800"
             : "left-full  shadow-none w-screen "
         }
-        transition-all duration-300 
-        flex flex-col w-full h-1/2 lg:w-auto lg:flex-row 
+        transition-all duration-300 shadow-xl
+        flex flex-col w-1/2 min-w-[400px] h-1/2 lg:w-auto lg:flex-row 
         lg:justify-end fixed top-0 bottom-0 -right-full lg:static
         items-center justify-center gap-x-9 gap-y-12 text-white`}
       >
@@ -69,7 +68,7 @@ const NavBar = () => {
             {" "}
             <Link
               href={"/"}
-              className="text-xl 
+              className="text-md 
               flex flex-row items-center justify-center gap-2"
             >
               <LiaHomeSolid /> home.
@@ -78,7 +77,7 @@ const NavBar = () => {
           <li onClick={closeNavBar}>
             <Link
               href={"/progress"}
-              className="text-xl 
+              className="text-md 
               flex flex-row items-center justify-center gap-2 "
             >
               {" "}
@@ -101,7 +100,7 @@ const NavBar = () => {
           <li onClick={closeNavBar}>
             <Link
               href={"/account"}
-              className="text-xl  flex flex-row 
+              className="text-md  flex flex-row 
               items-center justify-center gap-2
             "
             >
@@ -113,17 +112,18 @@ const NavBar = () => {
           <li onClick={closeNavBar}>
             <Link
               href={"/calculator"}
-              className="text-xl  flex flex-row items-center
+              className="text-md  flex flex-row items-center
                justify-center gap-2
             "
             >
-              <AiOutlineCalculator />calculator.
+              <AiOutlineCalculator />
+              calculator.
             </Link>
           </li>
           <li onClick={closeNavBar}>
             <Link
               href="/explore-exercises"
-              className="text-xl  flex flex-row items-center
+              className="text-md  flex flex-row items-center
                justify-center gap-2 
             "
             >
