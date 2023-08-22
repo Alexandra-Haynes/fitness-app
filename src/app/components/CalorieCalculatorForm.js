@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Image from "next/image";
+import ErrorMessage from "./ErrorMessage";
 
 const CalorieCalculatorForm = () => {
   const [activityName, setActivityName] = useState("");
@@ -35,8 +36,7 @@ const CalorieCalculatorForm = () => {
             duration: duration,
           },
           headers: {
-            "X-RapidAPI-Key":
-              process.env.RAPID_API_KEY,
+            "X-RapidAPI-Key": process.env.RAPID_API_KEY,
             "X-RapidAPI-Host": "calories-burned-by-api-ninjas.p.rapidapi.com",
           },
         }
@@ -53,7 +53,6 @@ const CalorieCalculatorForm = () => {
       console.error(error);
     }
   };
-
 
   //TODO: add most frequent searches
   return (
@@ -112,26 +111,11 @@ const CalorieCalculatorForm = () => {
       </form>
 
       {activityNotFound && (
-        <div
-          className="w-[80%] border border-dashed p-12 bg-white/30
-        flex flex-row gap-2 items-center justify-center pt-4 mx-auto mt-12"
-        >
-          <Image
-            src="/assets/no-results.png"
-            width={80}
-            height={80}
-            className=""
-            alt='No result'
-          />
-          <p
-            className="w-[80%]  text-center  
-        "
-          >
-            We couldn't find this activity. Try a different version. For
+        <ErrorMessage
+          errorText={`We couldn't find this activity. Try a different version. For
             example: run instead of running, pushups instead of push ups or
-            push-ups
-          </p>
-        </div>
+            push-ups.`}
+        />
       )}
       {/* Display activity details */}
       {activities.length > 0 && (

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import BodyMassIndex from '../components/BodyMassIndex';
 import BMRCalculator from '../components/BMRCalculator';
 import IdealBodyWeightCalculator from '../components/IdealBodyWeightCalculator';
-import DailyCaloricNeedsCalculator from '../components/DailyCaloricNeedsCalculator';
 
 const Calculator = () => {
   return (
@@ -21,11 +20,10 @@ const Calculator = () => {
         alt="dumbell and workout plan icon"
         className="absolute bottom-4 -right-24 -z-10"
       />
-      {/* <BodyFatCalculator /> */}
+      <BodyFatCalculator />
       {/* <BodyMassIndex /> */}
       {/* <BMRCalculator /> */}
       {/* <IdealBodyWeightCalculator /> */}
-      <DailyCaloricNeedsCalculator />
     </div>
   );
 }

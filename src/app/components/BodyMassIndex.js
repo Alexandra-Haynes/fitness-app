@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import ErrorMessage from "./ErrorMessage";
 
 const fetchBMI = async (height, weight) => {
   const { data } = await axios.get(
@@ -89,9 +90,8 @@ function BodyMassIndex() {
           ></video>
         </div>
       )}
-      {error && (
-        <p className="text-xl text-center">An error has occurred: {error}</p>
-      )}
+      {error && <ErrorMessage />}
+
       {data && (
         <div
           className="bg-white border w-[90%] max-w-[800px] mx-auto 

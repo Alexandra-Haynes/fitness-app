@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import ErrorMessage from "./ErrorMessage";
 
 const fetchBMR = async (age, weight, height, gender, equation) => {
   const weightInKg = weight / 2.2046; // convert weight from pounds to kg
@@ -104,7 +105,7 @@ function BasalMetabolicRate() {
             className="text-xl ml-2 mr-2 font-mono w-[80px] text-center
             focus:bg-highlights bg-highlights/80 py-1 rounded-full"
           />
-          in  
+          in
         </label>
         <label className="font-semibold">
           Weight:
@@ -157,9 +158,8 @@ function BasalMetabolicRate() {
           ></video>
         </div>
       )}
-      {error && (
-        <p className="text-xl text-center">An error has occurred: {error}</p>
-      )}
+      {error && <ErrorMessage />}
+
       {data && (
         <div
           className="bg-white border w-[90%] max-w-[800px] mx-auto 

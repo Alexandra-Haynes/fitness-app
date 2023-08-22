@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import ErrorMessage from "./ErrorMessage";
 
 const fetchIdealBodyWeight = async (height, body_frame, gender, formula) => {
   const heightInCm = height / 0.3937; // convert height from inches to cm
@@ -154,9 +155,7 @@ function IdealBodyWeightCalculator() {
           ></video>
         </div>
       )}
-      {error && (
-        <p className="text-xl text-center">An error has occurred: {error}</p>
-      )}
+      {error && <ErrorMessage />}
       {data && (
         <div
           className="bg-white border w-[90%] max-w-[800px] mx-auto 

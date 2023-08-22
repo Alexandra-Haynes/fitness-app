@@ -1,14 +1,18 @@
-'use client'
+"use client";
 
 import { useState } from "react";
 import axios from "axios";
+import Image from "next/image";
+import ErrorMessage from "./ErrorMessage";
+
+let API_KEY = process.env.RAPID_API_KEY;
 
 const fetchBodyFat = async (gender, height, weight, age) => {
   const { data } = await axios.get(
     "https://health-calculator-api.p.rapidapi.com/bodyfat/imperial",
     {
       headers: {
-        "X-RapidAPI-Key": "7fe9b1ed76msha35f8532c12af1fp1a55d7jsncc554e99d95b",
+        "X-RapidAPI-Key": API_KEY,
         "X-RapidAPI-Host": "health-calculator-api.p.rapidapi.com",
       },
       params: { gender, height, weight, age },
@@ -133,13 +137,19 @@ function BodyFatCalculator() {
           Calculate Body Fat
         </button>
       </form>
-      {loading && <div className=" flex flex-col items-center justify-center mx-auto h-[300px]">
-        <p className="text-primary text-xl text-center">Loading ...</p>
-        <video src='/assets/loadingIcon.mp4' autoPlay muted
-        className="h-[50px] w-auto"></video>
-        
-        </div>}
-      {error && <p className="text-xl text-center">An error has occurred: {error}</p>}
+      {loading && (
+        <div className=" flex flex-col items-center justify-center mx-auto h-[300px]">
+          <p className="text-primary text-xl text-center">Loading ...</p>
+          <video
+            src="/assets/loadingIcon.mp4"
+            autoPlay
+            muted
+            className="h-[50px] w-auto"
+          ></video>
+        </div>
+      )}
+      {error && (<ErrorMessage /> )}
+
       {data && (
         <div
           className="bg-white border w-[90%] max-w-[800px] mx-auto 
