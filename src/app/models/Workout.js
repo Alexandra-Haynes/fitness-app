@@ -4,12 +4,13 @@ const workoutSchema = new mongoose.Schema({
   type: { type: String, required: true },
   exercises: [
     {
-      name: { type: String, required: true },
+      name: { type: String, },
       reps: { type: Number },
     },
   ],
   date: { type: Date, default: Date.now },
-  time: { type: String },
+  distance: { type: Number },
+  time: { type: Number },
   calories: { type: Number },
   heartRate: { type: Number },
   notes: { type: String },
