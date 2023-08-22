@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import {BiEditAlt} from 'react-icons/bi'
+import ConnectToBayze from "../components/ConnectToBayze";
 
 const AccountPage = ({ user }) => {
   // const { savedExercises, previousWorkouts, badges, progress, healthData } =
@@ -67,8 +68,8 @@ const progressTrack = {
 
   return (
     <div
-      className="min-h-screen bg-primary/50 container px-12
-    mx-auto p-4 flex flex-col items-center justify-center gap-1"
+      className="min-h-screen bg-primary/40 container px-12 
+    w-screen p-4 flex flex-col items-center justify-center gap-1"
     >
       <h1 className="text-2xl uppercase font-bold py-6 mb-2 mt-6">
         My Account
@@ -128,39 +129,50 @@ const progressTrack = {
 
         {/* Previous Workouts Section */}
         <div>
-          <h2 className="text-xl font-semibold mb-2">Previous Workouts</h2>
-          <table className="min-w-full bg-white/20">
-            <thead>
-              <tr>
-                <th className="py-2 px-4 border-b border-gray-200 text-left text-xs leading-4 font-semibold text-gray-600 uppercase tracking-wider">
-                  Date
-                </th>
-                <th className="py-2 px-4 border-b border-gray-200 text-left text-xs leading-4 font-semibold text-gray-600 uppercase tracking-wider">
-                  Exercises
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {previousWorkouts.map((workout) => (
-                <tr key={workout._id}>
-                  <td className="py-2 px-4 border-b border-gray-200/30">
-                    {workout.date}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200/30">
-                    {workout.exercises.join(", ")}
-                  </td>
+          <div>
+            <h2 className="text-xl font-semibold mb-2">Previous Workouts</h2>
+            <table className="min-w-full bg-white/20">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b border-gray-200 text-left text-xs leading-4 font-semibold text-gray-600 uppercase tracking-wider">
+                    Date
+                  </th>
+                  <th className="py-2 px-4 border-b border-gray-200 text-left text-xs leading-4 font-semibold text-gray-600 uppercase tracking-wider">
+                    Exercises
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="bg-highlights mt-2 rounded-full p-1 w-[80px] text-center">
-            See all
+              </thead>
+              <tbody>
+                {previousWorkouts.map((workout) => (
+                  <tr key={workout._id}>
+                    <td className="py-2 px-4 border-b border-gray-200/30">
+                      {workout.date}
+                    </td>
+                    <td className="py-2 px-4 border-b border-gray-200/30">
+                      {workout.exercises.join(", ")}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="bg-highlights mt-2 rounded-full p-1 w-[80px] text-center">
+              See all
+            </div>
+          </div>
+          {/* _____Submit workout_____________ */}
+          <div
+            className="bg-secondary px-6 py-2 my-6 rounded-lg 
+    text-center shadow-lg hover:shadow-xl hover:translate-y-1 transition-all
+    ease-in-out"
+          >
+            <a href="/submit-workout">Submit workout</a>
           </div>
         </div>
-
         {/* Badges Section */}
         <div>
           <h2 className="text-xl font-semibold mb-2">Badges</h2>
+          <ConnectToBayze />
+
           <div className="flex flex-wrap">
             {badges.map((badge) => (
               <div className="m-1 text-center">
