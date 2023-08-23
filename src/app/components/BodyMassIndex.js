@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import ErrorMessage from "./ErrorMessage";
+import LoadingGif from "./LoadingGif";
 
 let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
 
@@ -49,7 +50,7 @@ function BodyMassIndex() {
         }}
         className="bg-white border w-[90%] mx-auto 
       flex flex-col items-start justify-center gap-6
-      rounded-md shadow-xl p-8 max-w-[800px]"
+      rounded-md shadow-xl p-8 max-w-[600px]"
       >
         <label className="font-semibold">
           Height:
@@ -81,22 +82,12 @@ function BodyMassIndex() {
           Calculate BMI
         </button>
       </form>
-      {loading && (
-        <div className=" flex flex-col items-center justify-center mx-auto h-[300px]">
-          <p className="text-primary text-xl text-center">Loading ...</p>
-          <video
-            src="/assets/loadingIcon.mp4"
-            autoPlay
-            muted
-            className="h-[50px] w-auto"
-          ></video>
-        </div>
-      )}
+      {loading && <LoadingGif />}
       {error && <ErrorMessage />}
 
       {data && (
         <div
-          className="bg-white border w-[90%] max-w-[800px] mx-auto 
+          className="bg-white border w-[90%] max-w-[600px] mx-auto 
   rounded-md shadow-xl p-6 my-12"
         >
           <table className="w-full text-center ">
