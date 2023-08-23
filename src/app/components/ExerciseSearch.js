@@ -212,7 +212,7 @@ const ExerciseSearch = () => {
 
   return (
     <section
-      className="relative min-h-screen h-fit md:w-[80%] mx-auto
+      className="relative min-h-screen h-fit  mx-auto max-w-[500px]
      flex flex-col items-center justify-start pt-24 pb-24"
     >
       <h1 className="text-gray-200 text-4xl text-center py-12 ">
@@ -225,7 +225,7 @@ const ExerciseSearch = () => {
         {/* _____________________SEARCH BAR___________________________________ */}
 
         <div className=" ">
-          <div className="flex flex-row items-center justify-start gap-4">
+          <div className="flex flex-row items-center justify-start gap-4 w-[400px]">
             {/* <CiSearch /> */}
             <div className="relative">
               <input
@@ -236,8 +236,9 @@ const ExerciseSearch = () => {
                 onFocus={() => setShowSuggestions(true)} // Show suggestions when the input is focused
                 // onBlur={() => setShowSuggestions(false)} // Hide suggestions when the input loses focus
                 placeholder=""
-                className="shadow-xl p-2 rounded-lg min-w-[300px] bg-slate-300
-               placeholder:text-slate-500 border focus:bg-slate-300 focus:text-black"
+                className="shadow-xl p-2 rounded-lg min-w-[350px] bg-slate-300
+               placeholder:text-slate-500 border focus:bg-slate-300
+                focus:text-black self-start"
               />
 
               {/* _________________________________________________SUGGESTIONS___________________________________ */}

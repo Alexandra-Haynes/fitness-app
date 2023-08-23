@@ -58,7 +58,7 @@ const NavBar = () => {
         transition-all duration-300 shadow-xl
         flex flex-col w-1/2 min-w-[400px] h-1/2 lg:w-auto lg:flex-row 
         lg:justify-end fixed top-0 bottom-0 -right-full lg:static
-        items-center justify-center gap-x-9 gap-y-12 text-white`}
+        items-center justify-center gap-x-9 mt-2 gap-y-12 text-white`}
       >
         <ul
           className="flex flex-col items-start gap-x-5 gap-y-5

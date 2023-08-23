@@ -4,7 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
-import { AiOutlineFolderAdd} from "react-icons/ai";
+import { AiOutlineFolderAdd, AiOutlineLoading3Quarters } from "react-icons/ai";
 import {MdOutlineBookmarkAdded} from 'react-icons/md'
 
 const ExerciseCard = ({ exercise }) => {
@@ -12,6 +12,8 @@ const ExerciseCard = ({ exercise }) => {
   const [expanded, setExpanded] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [isSaved, setIsSaved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
 
 
 
@@ -21,6 +23,7 @@ const ExerciseCard = ({ exercise }) => {
   // }
 
   const saveExercise = async () => {
+    setIsLoading(true); 
     try {
       const { id, ...exerciseWithoutId } = exercise; //dont send id to db
       if (session && session.user) {
@@ -52,9 +55,11 @@ const ExerciseCard = ({ exercise }) => {
             }, 2000);
         }
       }
+     
     } catch (error) {
       console.error("Error saving exercise:", error);
     }
+     setIsLoading(false);
   };
 
   const handleExpand = () => {
@@ -83,8 +88,8 @@ const ExerciseCard = ({ exercise }) => {
 
   return (
     <div
-      className={` w-full  p-4 mb-2 rounded-md shadow-lg transition-all ease-in-out duration-300
-    ${expanded ? "bg-slate-200 shadow-2xl" : "bg-slate-400 hover:scale-105"}
+      className={` w-[400px]  p-4 mb-2 rounded-md shadow-lg transition-all ease-in-out duration-300
+    ${expanded ? "bg-slate-200 shadow-2xl" : "bg-slate-400 hover:scale-[102%]"}
     
     ${
       exercise.Difficulty === "Beginner"
@@ -136,12 +141,13 @@ const ExerciseCard = ({ exercise }) => {
                 </button>
 
                 <button
-                  className=" cursor-pointer "
+                  className="cursor-pointer"
                   onClick={saveExercise}
                   title="Save exercise to your list"
                 >
-                 
-                  {isSaved ? (
+                  {isLoading ? (
+                    <AiOutlineLoading3Quarters className="text-2xl text-white animate-spin" />
+                  ) : isSaved ? (
                     <MdOutlineBookmarkAdded className="text-2xl text-green-700" />
                   ) : (
                     <AiOutlineFolderAdd className="text-2xl hover:scale-110" />
@@ -155,14 +161,14 @@ const ExerciseCard = ({ exercise }) => {
 
       {/* _________________Expanded_______________ */}
       {expanded && (
-        <div className=" pt-12 p-2 ">
+        <div className=" pt-12 p-2 max-w-[400px]">
           <div className="flex flex-col gap-2 items-center justify-between">
             <video
               autoPlay
               mute
               controls
               src={exercise.videoURL}
-              className="shadow-md  md:max-w-[600px]"
+              className="shadow-md  md:max-w-[380px]"
             ></video>
           </div>
 

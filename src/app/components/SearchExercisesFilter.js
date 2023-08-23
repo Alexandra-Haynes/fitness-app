@@ -22,15 +22,17 @@ const SearchExercisesFilter = ({
 
   return (
     <div>
-      <div className="flex flex-col items-start mt-4 gap-2 ">
+      <div className="flex flex-col items-start mt-4 gap-2">
         {/* _________________________________________________DIFFICULTY___________________________________ */}
 
         <div className="w-full flex flex-row items-center justify-between">
-          <div className=" flex flex-row gap-2 items-center justify-center py-4 text-slate-300">
+          <div className=" flex flex-row gap-2 items-center justify-center py-4
+           text-slate-300">
             Difficulty level:{" "}
             <div
               onClick={() => setSelectedDifficulty("Beginner")}
-              className={`h-6 w-6 rounded-full bg-green-500  hover:scale-105 cursor-pointer
+              className={`h-6 w-6 rounded-full bg-green-500  
+              hover:scale-105 cursor-pointer
                   flex items-center justify-center${
                     selectedDifficulty === "Beginner" ? "border-black " : ""
                   }`}
@@ -87,8 +89,8 @@ const SearchExercisesFilter = ({
 
         {/* _________________________________________________CATEGORY___________________________________ */}
         <div
-          className="max-w-[460px] md:max-w-[800px] grid grid-cols-4
-               lg:grid-cols-6 grid-rows-3 gap-2  text-slate-300"
+          className="max-w-[460px] grid grid-cols-4
+                grid-rows-3 gap-2  text-slate-300"
         >
           {" "}
           Category:
@@ -96,7 +98,7 @@ const SearchExercisesFilter = ({
             <div
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`text-[.8rem] flex items-center min-w-[80px] max-w-[100px] justify-center text-center rounded cursor-pointer text-black ${
+              className={`text-[.8rem] flex items-center min-w-[90px] justify-center text-center rounded cursor-pointer text-black ${
                 selectedCategory === category.id
                   ? "  bg-slate-200"
                   : "bg-slate-400"
@@ -112,8 +114,8 @@ const SearchExercisesFilter = ({
         <div className="text-slate-300 mt-4">
           <p className="col-span-4">Target Muscle:</p>
           <div
-            className="z-20 mt-2  max-w-[430px] lg:max-w-[800px]
-              grid grid-cols-4 lg:grid-cols-7 gap-2   "
+            className="z-20 mt-2  max-w-[430px] 
+              grid grid-cols-4 gap-2   "
           >
             {muscles.map((muscle) => (
               <div
