@@ -10,28 +10,24 @@ import {
 const Footer = () => {
   return (
     <footer
-      className="w-full max-w-screen bg-slate-800 text-slate-400 pt-8
-    "
+      className="w-full max-w-screen bg-black text-slate-300 pt-12"
     >
       <div
-        className="flex flex-col items-center gap-2 
-      justify-center text-sm xl:text-xl pt-6  "
+        className="flex flex-row items-center gap-12
+      justify-center text-sm"
       >
-        <Link
-          href="/privacy-policy"
-          className="hover:-translate-y-1 transition-all ease-in-out "
-        >
+        <Link href="/privacy-policy" className="hover:underline ">
           Privacy Policy
         </Link>
-        <Link href="/terms-of-use" className="hover:-translate-y-1">
+        <Link href="/terms-of-use" className="hover:underline">
           Terms of Use
         </Link>
       </div>
-      <p className="text-sm xl:text-xl font-semibold text-center py-4">
+      <p className="text-sm  font-thin text-white text-center py-4">
         Copyright © My workouts 2023
       </p>
 
-      <div className="w-1/2 h-[1px] mx-auto bg-white"></div>
+      <div className="w-1/2 h-[1px] mx-auto bg-white/30"></div>
       <div
         className="flex items-center justify-around pt-6 pb-12 
         w-1/2 mx-auto max-w-[400px]
