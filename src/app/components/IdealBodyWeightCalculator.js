@@ -2,13 +2,16 @@ import { useState } from "react";
 import axios from "axios";
 import ErrorMessage from "./ErrorMessage";
 
+
+let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
+
 const fetchIdealBodyWeight = async (height, body_frame, gender, formula) => {
   const heightInCm = height / 0.3937; // convert height from inches to cm
   const { data } = await axios.get(
     "https://health-calculator-api.p.rapidapi.com/ibw",
     {
       headers: {
-        "X-RapidAPI-Key": "7fe9b1ed76msha35f8532c12af1fp1a55d7jsncc554e99d95b",
+        "X-RapidAPI-Key": API_KEY,
         "X-RapidAPI-Host": "health-calculator-api.p.rapidapi.com",
       },
       params: { height: heightInCm, body_frame, gender, formula },

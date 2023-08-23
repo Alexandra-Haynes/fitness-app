@@ -5,7 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import ErrorMessage from "./ErrorMessage";
 
-let API_KEY = process.env.RAPID_API_KEY;
+let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
 
 const fetchBodyFat = async (gender, height, weight, age) => {
   const { data } = await axios.get(

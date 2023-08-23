@@ -5,6 +5,8 @@ import axios from "axios";
 import Image from "next/image";
 import ErrorMessage from "./ErrorMessage";
 
+let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
+
 const CalorieCalculatorForm = () => {
   const [activityName, setActivityName] = useState("");
   const [weight, setWeight] = useState(125);
@@ -36,7 +38,7 @@ const CalorieCalculatorForm = () => {
             duration: duration,
           },
           headers: {
-            "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+            "X-RapidAPI-Key": API_KEY,
             "X-RapidAPI-Host": "calories-burned-by-api-ninjas.p.rapidapi.com",
           },
         }
