@@ -1,107 +1,83 @@
-'use client'
-import React, {useState} from 'react'
-import BodyFatCalculator from '../components/BobyFatCalculator'
-import Image from 'next/image';
-import BodyMassIndex from '../components/BodyMassIndex';
-import BMRCalculator from '../components/BMRCalculator';
-import IdealBodyWeightCalculator from '../components/IdealBodyWeightCalculator';
+"use client";
+
+import React, { useState } from "react";
+import Image from "next/image";
+import BodyFatCalculator from "../components/BobyFatCalculator";
+import BodyMassIndex from "../components/BodyMassIndex";
+import BMRCalculator from "../components/BMRCalculator";
+import IdealBodyWeightCalculator from "../components/IdealBodyWeightCalculator";
+
+const componentConfig = [
+  {
+    key: "BodyFat",
+    component: BodyFatCalculator,
+    imageSrc: "/assets/calculatorIcon3.png",
+    title: "Body Fat Calculator",
+  },
+  {
+    key: "BodyMass",
+    component: BodyMassIndex,
+    imageSrc: "/assets/calculatorIcon1.png",
+    title: "Body Mass Index (BMI)",
+  },
+  {
+    key: "BMR",
+    component: BMRCalculator,
+    imageSrc: "/assets/calculatorIcon2.png",
+    title: "Basal Metabolic Rate (BMR)",
+  },
+  {
+    key: "IdealWeight",
+    component: IdealBodyWeightCalculator,
+    imageSrc: "/assets/calculatorIcon4.png",
+    title: "Ideal Body Weight (IBW)",
+  },
+];
+
+const CalculatorButton = ({ onClick, imageSrc, title }) => (
+  <button
+    onClick={onClick}
+    className="bg-white shadow-md p-4 rounded-sm
+        hover:translate-y-1 hover:shadow-lg 
+        transition-all ease-in-out w-[200px] h-[200px] uppercase font-semibold
+        flex flex-col items-center justify-center gap-3"
+  >
+    <Image src={imageSrc} height={48} width={48} alt="measure icon" />
+    {title}
+  </button>
+);
 
 const Calculator = () => {
-    const [activeComponent, setActiveComponent] = useState(null);
+  const [activeComponent, setActiveComponent] = useState(null);
 
-      const renderActiveComponent = () => {
-        switch (activeComponent) {
-          case "BodyFat":
-            return <BodyFatCalculator />;
-          case "BodyMass":
-            return <BodyMassIndex />;
-          case "BMR":
-            return <BMRCalculator />;
-          case "IdealWeight":
-            return <IdealBodyWeightCalculator />;
-          default:
-            return (
-              <div
-                className="mt-6 grid grid-cols-2 gap-y-4 content-center 
-              justify-items-center mx-auto max-w-[440px]"
-              >
-                <button
-                  onClick={() => setActiveComponent("BodyFat")}
-                  className="bg-orange-100 shadow-md p-4 rounded-sm
-                hover:bg-white hover:translate-y-1 hover:shadow-lg 
-                transition-all ease-in-out w-[200px] h-[200px] uppercase font-semibold
-                flex flex-col items-center justify-center gap-3"
-                >
-                  <Image
-                    src="/assets/calculatorIcon3.png"
-                    height={46}
-                    width={46}
-                    alt="measure icon"
-                  />
-                  Body Fat Calculator
-                </button>
-                <button
-                  onClick={() => setActiveComponent("BodyMass")}
-                  className="bg-pink-100 shadow-md p-4 rounded-sm
-                hover:bg-white hover:translate-y-1 hover:shadow-lg 
-                transition-all ease-in-out w-[200px] h-[200px] uppercase font-semibold
-                flex flex-col items-center justify-center gap-3"
-                >
-                  <Image
-                    src="/assets/calculatorIcon1.png"
-                    height={48}
-                    width={48}
-                    alt="measure icon"
-                  />
-                  Body Mass Index (BMI)
-                </button>
-                <button
-                  onClick={() => setActiveComponent("BMR")}
-                  className="bg-cyan-100 shadow-md p-4 rounded-sm
-                hover:bg-white hover:translate-y-1 hover:shadow-lg 
-                transition-all ease-in-out w-[200px] h-[200px] uppercase font-semibold
-                flex flex-col items-center justify-center gap-3"
-                >
-                  <Image
-                    src="/assets/calculatorIcon2.png"
-                    height={48}
-                    width={48}
-                    alt="measure icon"
-                  />
-                  Basal Metabolic Rate (BMR) 
-                </button>
-                <button
-                  onClick={() => setActiveComponent("IdealWeight")}
-                  className="bg-green-100 shadow-md p-4 rounded-sm
-                hover:bg-white hover:translate-y-1 hover:shadow-lg 
-                transition-all ease-in-out w-[200px] h-[200px] uppercase font-semibold
-                flex flex-col items-center justify-center gap-3"
-                >
-                  <Image
-                    src="/assets/calculatorIcon4.png"
-                    height={48}
-                    width={48}
-                    alt="measure icon"
-                  />
-                  Ideal Body Weight (IBW) 
-                </button>
-              </div>
-            );
-        }
-      };
+  const ActiveComp = componentConfig.find(
+    (comp) => comp.key === activeComponent
+  )?.component;
 
   return (
     <div className="h-fit pt-36 min-h-screen relative overflow-x-hidden bg-slate-100">
-      {!activeComponent &&(
+      {!activeComponent && (
         <div>
-          <h1 className='mt-6 text-3xl font-semibold uppercase mx-auto text-center'>Calculators</h1>
-      <h2 className=" text-lg font-light py-6 text-center text-primary">
-       Choose what you want to measure
-      </h2>
-      </div>)}
+          <h1 className="mt-6 text-3xl font-semibold uppercase mx-auto text-center">
+            Calculators
+          </h1>
+          <h2 className=" text-lg font-light py-6 text-center text-primary">
+            Choose what you want to measure
+          </h2>
+          <div className="mt-6 grid grid-cols-2 gap-y-4 content-center justify-items-center mx-auto max-w-[440px]">
+            {componentConfig.map((comp) => (
+              <CalculatorButton
+                key={comp.key}
+                onClick={() => setActiveComponent(comp.key)}
+                imageSrc={comp.imageSrc}
+                title={comp.title}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
-      
-      {renderActiveComponent()}
+      {ActiveComp && <ActiveComp />}
       {activeComponent && (
         <button
           onClick={() => setActiveComponent(null)}
@@ -109,13 +85,17 @@ const Calculator = () => {
                 hover:bg-white hover:animate-pulse hover:translate-y-1  
                 transition-all ease-in-out "
         >
-          <Image src='/assets/backArrow.png' width={48} height={48} 
-          alt='back arrow' title='back to selection' />
-         
+          <Image
+            src="/assets/backArrow.png"
+            width={48}
+            height={48}
+            alt="back arrow"
+            title="back to selection"
+          />
         </button>
       )}
     </div>
   );
-}
+};
 
-export default Calculator
+export default Calculator;
