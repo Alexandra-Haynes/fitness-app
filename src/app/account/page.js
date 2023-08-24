@@ -68,7 +68,7 @@ const progressTrack = {
 
   return (
     <div
-      className="min-h-screen bg-primary/40 container px-12 
+      className="min-h-screen bg-slate-200 px-12 
     w-screen p-4 flex flex-col items-center justify-center gap-1"
     >
       <h1 className="text-2xl uppercase font-bold py-6 mb-2 mt-6">
