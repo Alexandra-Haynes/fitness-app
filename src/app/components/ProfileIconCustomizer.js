@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-
+import Image from "next/image";
 import {RxValueNone} from 'react-icons/rx'
 import html2canvas from "html2canvas";
 
@@ -108,7 +108,7 @@ const handleDownloadImage = async () => {
             backgroundColor: color,
           }}
         >
-          <img
+          <Image
             id="preview-icon"
             src={icon}
             alt="Selected icon"
@@ -129,7 +129,7 @@ const handleDownloadImage = async () => {
               }`}
               onClick={() => seticon(`assets/avatar/${item}`)}
             >
-              <img src={`assets/avatar/${item}`} alt={item} className="h-12" />
+              <Image src={`assets/avatar/${item}`} alt={item} className="h-12" />
             </div>
           ))}
         </div>

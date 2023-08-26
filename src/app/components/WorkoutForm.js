@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from "react";
+import Image from "next/image";
 
 
 const workoutIcons = {
@@ -27,7 +28,7 @@ const workoutNames = {
 };
 
 const WorkoutIcon = ({ type }) => (
-  <img
+  <Image
     src={workoutIcons[type]}
     alt={`${workoutNames[type]} Icon`}
     width={32}
@@ -224,7 +225,7 @@ function WorkoutForm({ onSubmit }) {
         <div>
           {/* <label className="block ">Notes</label> */}
           <div onClick={() => setShowNotes(!showNotes)} className="mt-6">
-            <img
+            <Image
               src="/assets/notes.png"
               alt="Notes Icon"
               width={36}

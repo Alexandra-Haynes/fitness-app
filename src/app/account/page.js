@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {BiEditAlt} from 'react-icons/bi'
 import ConnectToBayze from "../components/ConnectToBayze";
 
@@ -175,9 +176,8 @@ const progressTrack = {
 
           <div className="flex flex-wrap">
             {badges.map((badge) => (
-              <div className="m-1 text-center">
-                <img
-                  key={badge.name}
+              <div className="m-1 text-center" key={badge.name}>
+                <Image
                   src={`assets/badges/${badge.name}.png`}
                   alt={badge.name}
                   className={`w-12 h-12 ${

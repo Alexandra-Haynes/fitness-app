@@ -28,7 +28,7 @@ const workoutNames = {
 };
 
 const WorkoutIcon = ({ type }) => (
-  <img
+  <Image
     src={workoutIcons[type]}
     alt={`${workoutNames[type]} Icon`}
     width={42}
@@ -86,74 +86,132 @@ const formatDate = (date) => {
     >
       <div className="w-full flex flex-col items-center justify-between gap-2">
         <div className="w-[400px] flex flex-row gap-4 items-center justify-between">
-          <div className="">
+          <div className="opacity-90" title={workout.type}>
             {" "}
             <WorkoutIcon type={workout.type} />
           </div>
 
-          <h3 className=" text-slate-500 font-thin">
+          <h3 className=" text-slate-500 text-[.8rem] pr-2 flex flex-row items-center justify-center gap-1">
+            <span>
+              <Image
+                src="/assets/calendar.png"
+                width={12}
+                height={12}
+                alt="calendar icon"
+              />
+            </span>
             {formatDate(workout.date)}
           </h3>
         </div>
 
-        <div className="border p-4 w-80">
+        <div className="border p-4 w-80 bg-white/70">
           {" "}
           <p>
             Exercises:{" "}
             {workout.exercises.map((ex, index) => (
-              <p>
-                {" "}
-                {ex.name} {ex.reps}
-              </p>
+              <div key={index}>
+                <p className="font-semibold uppercase"> {ex.name}</p>
+                <p> {ex.reps} </p>
+                <p> {ex.weight} </p>
+              </div>
             ))}
           </p>
         </div>
-        <div>{workout.notes}</div>
+        {workout.notes && (
+          <div className="bg-white/70 p-2 rounded-sm w-80">
+            <p className="flex flex-row items-start justify-center text-slate-600 gap-2">
+              <span className="text-slate-400 flex flex-row items-center justify-center gap-1 ">
+                <span>
+                  <Image
+                    src="/assets/notes2.png"
+                    width={15}
+                    height={15}
+                    alt="notes icon"
+                  />
+                </span>
+                notes:{" "}
+              </span>
+              {workout.notes}
+            </p>
+          </div>
+        )}
         <div className="w-80 h-[1px] opacity-20 my-2 bg-slate-400"></div>
 
-        <div className="flex flex-row items-center justify-around gap-8 ">
-          <div className="flex flex-col items-center justify-center gap-1">
-            <Image
-              src="/assets/time.png"
-              width={20}
-              height={20}
-              alt="timer icon"
-            />
-            <p className="text-[.9rem]">
-              {" "}
-              {workout.time}{" "}
-              <span className="text-[.7rem] opacity-70">min</span>
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1">
-            <Image
-              src="/assets/calories.png"
-              width={20}
-              height={20}
-              alt="timer icon"
-            />
-            <p className="text-[.9rem]">
-              {" "}
-              {workout.calories}{" "}
-              <span className="text-[.7rem] opacity-70">cal</span>
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1">
-            <Image
-              src="/assets/heart.png"
-              width={20}
-              height={20}
-              alt="heart icon"
-            />
-            <p className="text-[.9rem]">
-              {" "}
-              {workout.heartRate}{" "}
-              <span className="text-[.7rem] opacity-70">BPM</span>
-            </p>
-          </div>
+        <div className="flex flex-row items-center justify-evenly gap-8 w-80">
+          {workout.time && (
+            <div
+              className="flex flex-col items-center justify-center gap-1 p-1 
+             whitespace-nowrap w-[90px] border shadow-md"
+            >
+              <Image
+                src="/assets/time.png"
+                width={20}
+                height={20}
+                alt="timer icon"
+              />
+              <p className="text-[.9rem]">
+                {" "}
+                {workout.time}{" "}
+                <span className="text-[.7rem] opacity-70">min</span>
+              </p>
+            </div>
+          )}
 
-         
-         
+          {workout.distance && (
+            <div
+              className="flex flex-col items-center justify-center gap-1 p-1 
+            whitespace-nowrap w-[90px] border shadow-md"
+            >
+              <Image
+                src="/assets/distance.png"
+                width={20}
+                height={20}
+                alt="distance icon"
+              />
+              <p className="text-[.9rem]">
+                {" "}
+                {workout.distance}{" "}
+                <span className="text-[.7rem] opacity-70">mi</span>
+              </p>
+            </div>
+          )}
+
+          {workout.calories && (
+            <div
+              className="flex flex-col items-center justify-center gap-1 p-1 
+             whitespace-nowrap w-[90px] border shadow-md"
+            >
+              <Image
+                src="/assets/calories.png"
+                width={20}
+                height={20}
+                alt="timer icon"
+              />
+              <p className="text-[.9rem]">
+                {" "}
+                {workout.calories}{" "}
+                <span className="text-[.7rem] opacity-70">cal</span>
+              </p>
+            </div>
+          )}
+          {workout.heartRate && (
+            <div
+              className="flex flex-col items-center justify-center gap-1 p-1 
+            border shadow-md whitespace-nowrap w-[90px]"
+            >
+              <Image
+                src="/assets/heart.png"
+                width={20}
+                height={20}
+                alt="heart icon"
+              />
+              <p className="text-[.9rem]">
+                {" "}
+                {workout.heartRate}{" "}
+                <span className="text-[.7rem] opacity-70">BPM</span>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
