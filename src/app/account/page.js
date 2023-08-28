@@ -1,71 +1,75 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {BiEditAlt} from 'react-icons/bi'
+import { BiEditAlt } from "react-icons/bi";
 import ConnectToBayze from "../components/ConnectToBayze";
+
 
 const AccountPage = ({ user }) => {
   // const { savedExercises, previousWorkouts, badges, progress, healthData } =
   //   user;
 
-const healthData={
-  weight: 125,
-  height: 164,
-  bmi: 20.4,
-  bfp: 15,
-  bmr: 14,
-  ibw: 120,
-  dcn:2000,
-  dwi: 2,
-  
-}
+  const healthData = {
+    weight: 125,
+    height: 164,
+    bmi: 20.4,
+    bfp: 15,
+    bmr: 14,
+    ibw: 120,
+    dcn: 2000,
+    dwi: 2,
+  };
 
-const savedExercises = [
-  {_id: 1, name: 'Rowing' },
-  {
-    _id:2, name: 'Power walking'
-  }
-]
+  const savedExercises = [
+    { _id: 1, name: "Rowing" },
+    {
+      _id: 2,
+      name: "Power walking",
+    },
+  ];
 
-const previousWorkouts = [
-  { _id: 1, date: "July 15th", exercises: ["100 Pushups", "2k Running"] },
-  { _id: 2, date: "July 27th", exercises: ["200m Swimming", "120 Barbell Squats"] },
-];
-const userEarnedBadges = ["Longest", "5k Run"];
+  const previousWorkouts = [
+    { _id: 1, date: "July 15th", exercises: ["100 Pushups", "2k Running"] },
+    {
+      _id: 2,
+      date: "July 27th",
+      exercises: ["200m Swimming", "120 Barbell Squats"],
+    },
+  ];
+  const userEarnedBadges = ["Longest", "5k Run"];
 
-const badgesAvailable = [
-  "Longest",
-  "5k Run",
-  "Fastest",
+  const badgesAvailable = [
+    "Longest",
+    "5k Run",
+    "Fastest",
 
-  "Mix it up",
-  "Double down",
-];
+    "Mix it up",
+    "Double down",
+  ];
 
-const badges = badgesAvailable.map((badge) => ({
-  name: badge,
-  earned: userEarnedBadges.includes(badge),
-}));
-const progress = {
-  personalBests: {
-    benchPress: 120,
-    deadlift: 220,
-    fivekrun: 30,
-    plank: 120,
-    swim: 30
-  },
-};
+  const badges = badgesAvailable.map((badge) => ({
+    name: badge,
+    earned: userEarnedBadges.includes(badge),
+  }));
+  const progress = {
+    personalBests: {
+      benchPress: 120,
+      deadlift: 220,
+      fivekrun: 30,
+      plank: 120,
+      swim: 30,
+    },
+  };
 
-const progressTrack = {
-  name: "Goals for July",
-  description: "Workout 12 times",
-  currentProgress: 8, 
-  target: 12,
-  percentageAccomplished: function () {
-    return (this.currentProgress / this.target) * 100;
-  },
-};
-
+  const progressTrack = {
+    name: "Goals for July",
+    description: "Workout 12 times",
+    currentProgress: 8,
+    target: 12,
+    percentageAccomplished: function () {
+      return (this.currentProgress / this.target) * 100;
+    },
+  };
 
   return (
     <div
@@ -173,13 +177,14 @@ const progressTrack = {
         <div>
           <h2 className="text-xl font-semibold mb-2">Badges</h2>
           <ConnectToBayze />
-
-          <div className="flex flex-wrap">
+          {/* <div className="flex flex-wrap">
             {badges.map((badge) => (
               <div className="m-1 text-center" key={badge.name}>
                 <Image
-                  src={`assets/badges/${badge.name}.png`}
+                  src={`/assets/badges/${badge.name}.png`}
                   alt={badge.name}
+                  width={36}
+                  height={36}
                   className={`w-12 h-12 ${
                     badge.earned ? "scale-110" : "grayscale opacity-60"
                   }`}
@@ -187,7 +192,7 @@ const progressTrack = {
                 <div className="text-xs mt-1">{badge.name}</div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
 
         {/* Personal Records Section */}
