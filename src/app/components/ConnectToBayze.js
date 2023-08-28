@@ -1,40 +1,28 @@
 'use client'
 import React from "react";
 
+
 const ConnectToBayze = () => {
-console.log('Connecting to Bayze...')
-
   const handleConnect = async () => {
-    const appId = ""; 
-    const url = "https://gemsapi.bayz.ai/user/init";
-
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ appId }),
-      });
+      const res = await fetch("/api/connectToBayze");
+      const data = await res.json();
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+      if (data.success) {
+        // Do something with data.badges here
+      } else {
+        console.error("Failed to connect to Bayze");
       }
-
-      const data = await response.json();
-      console.log('Connected to Bayze', data);
     } catch (error) {
-      console.error(
-        "There was a problem with the fetch operation:",
-        error.message
-      );
+      console.error("Error connecting to Bayze:", error);
     }
   };
-
   return (
-    <div className="bg-highlights px-6 py-2 my-6 rounded-lg 
+    <div
+      className="bg-highlights px-6 py-2 my-6 rounded-lg
     text-center shadow-lg hover:shadow-xl hover:translate-y-1 transition-all
-    ease-in-out">
+    ease-in-out"
+    >
       <a onClick={handleConnect} href="#">
         Connect to Bayze
       </a>
@@ -43,3 +31,5 @@ console.log('Connecting to Bayze...')
 };
 
 export default ConnectToBayze;
+
+
