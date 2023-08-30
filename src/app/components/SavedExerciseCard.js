@@ -27,7 +27,8 @@ const SavedExerciseCard = ({ exercise }) => {
 
   return (
     <div
-      className={` w-full  p-4 mb-2 rounded-md shadow-lg transition-all ease-in-out duration-300
+      className={` w-full min-w-[360px] mx-auto  p-4 mb-2 
+      rounded-md shadow-lg transition-all ease-in-out duration-300
     ${expanded ? "bg-slate-200 shadow-2xl" : "bg-slate-400 hover:scale-105"}
     
     ${
@@ -57,7 +58,7 @@ const SavedExerciseCard = ({ exercise }) => {
                   />
                 </div>
 
-                <h3 className=" text-black font-semibold uppercase max-w-[260px]">
+                <h3 className=" text-black text-sm font-semibold uppercase max-w-[260px]">
                   {exercise.exercise_name}
                 </h3>
               </div>

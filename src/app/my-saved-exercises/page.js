@@ -41,26 +41,17 @@ function SavedExercises() {
       className="relative min-h-screen h-fit md:w-[80%] 
     pt-12  mx-auto flex flex-col items-center justify-center bg-slate-200"
     >
-      <h1 className="font-semibold text-xl py-12">
+      <h1 className=" text-lg py-12">
         {" "}
         Your saved exercises in one place{" "}
       </h1>
       {loading ? (
-        // Replace this with your video component or any loading spinner
-        // <div className=" flex flex-col items-center justify-center mx-auto h-[300px]">
-        //   <p className="text-primary text-xl text-center">Loading ...</p>
-        //   <video
-        //     src="/assets/loadingIcon.mp4"
-        //     autoPlay
-        //     muted
-        //     className="h-[50px] w-auto"
-        //   ></video>
-        // </div>
+       
         <div className="w-[300px]">
           <ExerciseCardsSkeleton />
         </div>
       ) : (
-        <div className="max-w-[300px] mx-auto">
+        <div className="max-w-[380px] mx-auto mb-24">
           {exercises.map((exercise) => (
             <SavedExerciseCard key={exercise._id} exercise={exercise} />
           ))}
