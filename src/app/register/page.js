@@ -40,9 +40,12 @@ const Register = () => {
       if (res.ok) {
         toast.success("Successfully registered the user");
         console.log("Successfully resgistered!");
-        setTimeout(() => {
-          signIn();
-        }, 1500);
+        // Save email and password to local storage
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+        // setTimeout(() => {
+        //   signIn();
+        // }, 1500);
         return;
       } else {
         console.log("Error while registering...");

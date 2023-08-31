@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,19 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+
+    useEffect(() => {
+      // Get email and password from local storage
+      const savedEmail = localStorage.getItem("email");
+      const savedPassword = localStorage.getItem("password");
+
+      if (savedEmail && savedPassword) {
+        setEmail(savedEmail);
+        setPassword(savedPassword);
+      }
+    }, []);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -65,6 +78,7 @@ const Login = () => {
 
           <form className="mt-8">
             <input
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               className="rounded-lg border border-primary/50 w-full py-2 px-4
@@ -76,6 +90,7 @@ const Login = () => {
             />
 
             <input
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               id="sign-in-email"
