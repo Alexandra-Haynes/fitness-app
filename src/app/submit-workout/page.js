@@ -62,7 +62,7 @@ function SubmitWorkout() {
         <div
           className="grid grid-cols-2 fixed h-20 py-8 right-0 top-20 w-1/2 
             max-w-[300px]  bg-highlights/70  z-50 rounded-l-lg shadow-lg
-            justify-items-center content-center pl-6"
+            justify-items-center content-center pl-6 whitespace-nowrap"
         >
           <div
             className="flex flex-col 

@@ -4,11 +4,14 @@ import React, { useState } from "react";
 import Image from "next/image";
 import MotivationalQuote from "./MotivationalQuote";
 
+
+
 const HeroBanner = ({ navigateToExercises }) => {
   const { data: session } = useSession();
   const [isMounted, setIsMounted] = useState(false);
 
   const isLoggedIn = session?.user;
+  const username = localStorage.getItem("username");
 
   return (
     <>
@@ -24,7 +27,7 @@ const HeroBanner = ({ navigateToExercises }) => {
            ${isMounted ? "" : "animate-slide-in-left"}
           `}
             >
-              Welcome back! {session.user.username}
+              Welcome back, {username}!
             </h2>
           </div>
         ) : (

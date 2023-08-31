@@ -43,10 +43,8 @@ const Register = () => {
         // Save email and password to local storage
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
-         localStorage.setItem("username", username);
-        // setTimeout(() => {
-        //   signIn();
-        // }, 1500);
+        localStorage.setItem("username", username);
+       
         return;
       } else {
         console.log("Error while registering...");
