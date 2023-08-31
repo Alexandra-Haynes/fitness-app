@@ -1,25 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
+
 import Image from "next/image";
 import ErrorMessage from "./ErrorMessage";
 import LoadingGif from "./LoadingGif";
 
-let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
+
 
 const fetchBodyFat = async (gender, height, weight, age) => {
-  const { data } = await axios.get(
-    "https://health-calculator-api.p.rapidapi.com/bodyfat/imperial",
-    {
-      headers: {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": "health-calculator-api.p.rapidapi.com",
-      },
-      params: { gender, height, weight, age },
-    }
-  );
-  return data;
+   const response = await fetch("/api/calculateBodyFat", {
+     method: "POST",
+     headers: { "Content-Type": "application/json" },
+     body: JSON.stringify({ age, weight, height, gender }),
+   });
+
+   const data = await response.json();
+   return data;
 };
 
 function BodyFatCalculator() {
