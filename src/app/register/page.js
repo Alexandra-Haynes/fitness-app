@@ -3,24 +3,28 @@
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
+import ErrorMessage from "../components/ErrorMessage";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
 
     if (username === "" || email === "" || password === "") {
-      toast.error("Fill all fields");
+      setErrorMessage("Please fill all fields");
       return;
     }
 
     if (password.length < 6) {
-      toast.error("Password must be at least 6 characters");
+      setErrorMessage("Password must be at least 6 characters");
       return;
     }
+    console.log("Form values:", { username, email, password });
 
     try {
       const res = await fetch("/api/register", {
@@ -30,22 +34,24 @@ const Register = () => {
         method: "POST",
         body: JSON.stringify({ username, email, password }),
       });
-
-      console.log(await res.json());
+      const resJson = await res.json();
+      console.log("Server response:", resJson);
+      // console.log(await res.json());
       if (res.ok) {
         toast.success("Successfully registered the user");
-        console.log('Successfully resgistered!')
+        console.log("Successfully resgistered!");
         setTimeout(() => {
           signIn();
         }, 1500);
         return;
       } else {
-        toast.error("Error occured while registering");
-        console.log('Error while registering...')
+        console.log("Error while registering...");
+        setErrorMessage("Error occurred while registering");
         return;
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error in catch block:", error);
+      setErrorMessage("An unexpected error occurred");
     }
   };
 
@@ -96,7 +102,6 @@ const Register = () => {
             <input
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-             
               placeholder="Password"
               className="rounded-lg border border-primary/50 w-full py-2 px-4
                      bg-white text-gray-700
@@ -106,13 +111,14 @@ const Register = () => {
             />
 
             <button
-          onClick={handleSubmit}
+              onClick={handleSubmit}
               className="py-2 px-4 hover:bg-primary hover:text-white bg-highlights
                     text-black w-full transition ease-in-out duration-200 
                     text-center shadow-md  rounded-lg hover:translate-y-1"
             >
               Register
             </button>
+            {errorMessage && <ErrorMessage errorText={errorMessage} />}
           </form>
 
           <div className="flex items-center justify-center mt-6">
