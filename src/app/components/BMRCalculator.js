@@ -1,26 +1,19 @@
 import { useState } from "react";
-import axios from "axios";
+
 import ErrorMessage from "./ErrorMessage";
 import LoadingGif from "./LoadingGif";
 
-let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
-
 const fetchBMR = async (age, weight, height, gender, equation) => {
-  const weightInKg = weight / 2.2046; // convert weight from pounds to kg
-  const heightInCm = height / 0.3937; // convert height from inches to cm
+  const response = await fetch("/api/calculateBMR", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ age, weight, height, gender, equation }),
+  });
 
-  const { data } = await axios.get(
-    "https://health-calculator-api.p.rapidapi.com/bmr",
-    {
-      headers: {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": "health-calculator-api.p.rapidapi.com",
-      },
-      params: { age, weight: weightInKg, height: heightInCm, gender, equation },
-    }
-  );
+  const data = await response.json();
   return data;
 };
+
 
 function BasalMetabolicRate() {
   const [age, setAge] = useState("30");
