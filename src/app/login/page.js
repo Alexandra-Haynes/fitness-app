@@ -3,35 +3,36 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import ErrorMessage from "../components/ErrorMessage";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
 
-    useEffect(() => {
-      // Get email and password from local storage
-      const savedEmail = localStorage.getItem("email");
-      const savedPassword = localStorage.getItem("password");
+  useEffect(() => {
+    // Get email and password from local storage
+    const savedEmail = localStorage.getItem("email");
+    const savedPassword = localStorage.getItem("password");
 
-      if (savedEmail && savedPassword) {
-        setEmail(savedEmail);
-        setPassword(savedPassword);
-      }
-    }, []);
-
+    if (savedEmail && savedPassword) {
+      setEmail(savedEmail);
+      setPassword(savedPassword);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
 
     if (password === "" || email === "") {
-      toast.error("Fill all fields!");
+      setErrorMessage("Please fill all fields");
       return;
     }
 
     if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
+      setErrorMessage("Password must be at least 6 characters");
       return;
     }
 
@@ -45,10 +46,12 @@ const Login = () => {
       if (res?.error == null) {
         router.push("/");
       } else {
-        toast.error("Error occured while logging");
+        console.log("Error while logging...");
+        setErrorMessage("Error occurred while logging. Please try again");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error in catch block:", error);
+      setErrorMessage("An unexpected error occurred");
     }
   };
   return (
@@ -109,6 +112,7 @@ const Login = () => {
             >
               Login
             </button>
+            {errorMessage && <ErrorMessage errorText={errorMessage} />}
           </form>
 
           <div className="flex items-center justify-center mt-6">
