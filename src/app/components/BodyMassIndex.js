@@ -1,22 +1,18 @@
 import { useState } from "react";
-import axios from "axios";
 import ErrorMessage from "./ErrorMessage";
 import LoadingGif from "./LoadingGif";
 
-let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
+
 
 const fetchBMI = async (height, weight) => {
-  const { data } = await axios.get(
-    "https://health-calculator-api.p.rapidapi.com/bmi/imperial",
-    {
-      headers: {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": "health-calculator-api.p.rapidapi.com",
-      },
-      params: { height, weight },
-    }
-  );
-  return data;
+const response = await fetch("/api/calculateBMI", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ weight, height }),
+});
+
+const data = await response.json();
+return data;
 };
 
 function BodyMassIndex() {
