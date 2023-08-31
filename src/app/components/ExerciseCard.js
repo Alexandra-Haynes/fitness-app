@@ -110,11 +110,11 @@ const ExerciseCard = ({ exercise }) => {
               <div className="flex flex-row gap-4 items-center justify-center">
                 <div className="">
                   <Image
-                    src={`/assets/categories/${exercise.Category}.png`}
+                    src={`/assets/categories/${exercise.Category.toLowerCase()}.png`}
                     height={40}
                     width={40}
-                    title={`Category: ${exercise.Category}`}
-                    alt={exercise.Category}
+                    title={`Category: ${exercise.Category.toLowerCase()}`}
+                    alt={exercise.Category.toLowerCase()}
                   />
                 </div>
 
