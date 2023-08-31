@@ -1,22 +1,17 @@
 import { useState } from "react";
-import axios from "axios";
 import ErrorMessage from "./ErrorMessage";
 import LoadingGif from "./LoadingGif";
 
-let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
 
 const fetchIdealBodyWeight = async (height, body_frame, gender, formula) => {
   const heightInCm = height / 0.3937; // convert height from inches to cm
-  const { data } = await axios.get(
-    "https://health-calculator-api.p.rapidapi.com/ibw",
-    {
-      headers: {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": "health-calculator-api.p.rapidapi.com",
-      },
-      params: { height: heightInCm, body_frame, gender, formula },
-    }
-  );
+  const response = await fetch("/api/calculateIdealBodyWeight", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ height: heightInCm, body_frame, gender, formula }),
+  });
+
+  const data = await response.json();
   return data;
 };
 
@@ -30,6 +25,7 @@ function IdealBodyWeightCalculator() {
   const [error, setError] = useState(null);
 
   const calculateIdealBodyWeight = async () => {
+
     setLoading(true);
     setError(null);
     try {
