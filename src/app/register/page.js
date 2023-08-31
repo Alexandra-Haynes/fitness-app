@@ -48,7 +48,8 @@ const Register = () => {
         return;
       } else {
         console.log("Error while registering...");
-        setErrorMessage("Error occurred while registering");
+        // setErrorMessage("Error occurred while registering");
+         setErrorMessage(resJson.error);
         return;
       }
     } catch (error) {
