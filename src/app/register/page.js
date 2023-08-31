@@ -5,14 +5,18 @@ import { signIn } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
 import ErrorMessage from "../components/ErrorMessage";
 
+import LoadingSpinner from "../components/LoadingSpinner";
+
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     setErrorMessage("");
 
     if (username === "" || email === "" || password === "") {
@@ -38,22 +42,30 @@ const Register = () => {
       console.log("Server response:", resJson);
       // console.log(await res.json());
       if (res.ok) {
+        signIn("credentials", {
+          email,
+          password,
+          callbackUrl: "/login",
+        });
+        setIsLoading(false);
         toast.success("Successfully registered the user");
         console.log("Successfully resgistered!");
         // Save email and password to local storage
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
         localStorage.setItem("username", username);
-       
+
         return;
       } else {
         console.log("Error while registering...");
+        setIsLoading(false);
         // setErrorMessage("Error occurred while registering");
-         setErrorMessage(resJson.error);
+        setErrorMessage(resJson.error);
         return;
       }
     } catch (error) {
-      console.error("Error in catch block:", error);
+      setIsLoading(false);
+      console.error("Failed to parse JSON:", error);
       setErrorMessage("An unexpected error occurred");
     }
   };
@@ -117,9 +129,16 @@ const Register = () => {
               onClick={handleSubmit}
               className="py-2 px-4 hover:bg-primary hover:text-white bg-highlights
                     text-black w-full transition ease-in-out duration-200 
-                    text-center shadow-md  rounded-lg hover:translate-y-1"
+                    text-center shadow-md  rounded-lg hover:translate-y-1
+                    flex flex-row gap-2 items-center justify-center"
             >
-              Register
+              {isLoading ? (
+                <>
+                  Create account <LoadingSpinner />
+                </>
+              ) : (
+                "Create account"
+              )}
             </button>
             {errorMessage && <ErrorMessage errorText={errorMessage} />}
           </form>

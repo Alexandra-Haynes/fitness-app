@@ -1,14 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     setErrorMessage("");
 
     if (password === "" || email === "") {
@@ -46,10 +48,12 @@ const Login = () => {
       if (res?.error == null) {
         router.push("/");
       } else {
+        setIsLoading(false);
         console.log("Error while logging...");
         setErrorMessage("Error occurred while logging. Please try again");
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error in catch block:", error);
       setErrorMessage("An unexpected error occurred");
     }
@@ -108,9 +112,16 @@ const Login = () => {
               onClick={handleSubmit}
               className="py-2 px-4 hover:bg-primary hover:text-white bg-highlights
                     text-black w-full transition ease-in-out duration-200 
-                    text-center shadow-md  rounded-lg hover:translate-y-1"
+                    text-center shadow-md  rounded-lg hover:translate-y-1
+                    flex flex-row gap-2 items-center justify-center"
             >
-              Login
+              {isLoading ? (
+                <>
+                  Login <LoadingSpinner />
+                </>
+              ) : (
+                "Login"
+              )}
             </button>
             {errorMessage && <ErrorMessage errorText={errorMessage} />}
           </form>
