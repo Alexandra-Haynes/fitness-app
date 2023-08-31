@@ -27,7 +27,12 @@ function BodyMassIndex() {
     setError(null);
     try {
       const bmiData = await fetchBMI(height, weight);
-      setData(bmiData);
+       if (!bmiData || Object.keys(bmiData).length === 0) {
+         setError("Empty data received from API");
+         setData(null);
+       } else {
+         setData(bmiData);
+       }
     } catch (err) {
       setError(err.message);
     }
