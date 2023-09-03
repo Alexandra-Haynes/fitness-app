@@ -110,6 +110,8 @@ const handleDownloadImage = async () => {
         >
           <Image
             id="preview-icon"
+            width={12}
+            height={12}
             src={icon}
             alt="Selected icon"
             className="absolute"
@@ -129,7 +131,7 @@ const handleDownloadImage = async () => {
               }`}
               onClick={() => seticon(`assets/avatar/${item}`)}
             >
-              <Image src={`assets/avatar/${item}`} alt={item} className="h-12" />
+              <Image src={`assets/avatar/${item}`} alt={item} height={12} width={12} className="h-12" />
             </div>
           ))}
         </div>

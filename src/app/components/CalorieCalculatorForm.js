@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import Image from "next/image";
 import ErrorMessage from "./ErrorMessage";
 
 let API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;

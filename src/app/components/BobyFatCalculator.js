@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-
-import Image from "next/image";
 import ErrorMessage from "./ErrorMessage";
 import LoadingGif from "./LoadingGif";
 

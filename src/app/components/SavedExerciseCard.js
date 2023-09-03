@@ -6,6 +6,10 @@ import { GrFormClose } from "react-icons/gr";
 const SavedExerciseCard = ({ exercise }) => {
   const [expanded, setExpanded] = useState(false);
 
+  const handleAddToWorkout = (exercise) => {
+    setSelectedExercises([...selectedExercises, exercise]);
+  };
+
   const handleExpand = () => {
     setExpanded(!expanded);
   };

@@ -178,7 +178,9 @@ const progressTrack = {
             {badges.map((badge) => (
               <div className="m-1 text-center" key={badge.name}>
                 <Image
-                  src={`assets/badges/${badge.name}.png`}
+                  src={`/assets/badges/${badge.name}.png`}
+                  width={36}
+                  height={36}
                   alt={badge.name}
                   className={`w-12 h-12 ${
                     badge.earned ? "scale-110" : "grayscale opacity-60"

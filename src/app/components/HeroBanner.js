@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-import Image from "next/image";
-import MotivationalQuote from "./MotivationalQuote";
+
 
 
 
