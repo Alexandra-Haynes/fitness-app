@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import SavedExerciseCard from "../components/SavedExerciseCard";
 import ExerciseCardsSkeleton from "../components/ExerciseCardsSkeleton";
@@ -42,6 +43,39 @@ function SavedExercises() {
     fetchExercises();
   }, [session]);
 
+  const handleAddToWorkout = (exercise) => {
+    setSelectedExercises([...selectedExercises, exercise]);
+  };
+
+  const uniqueCategories = [];
+  const uniqueMuscles = [];
+
+  selectedExercises.forEach((exercise) => {
+    if (exercise.Category && !uniqueCategories.includes(exercise.Category)) {
+      uniqueCategories.push(exercise.Category);
+    }
+
+    if (
+      exercise.target &&
+      exercise.target.Primary[0] &&
+      !uniqueMuscles.includes(exercise.target.Primary[0])
+    ) {
+      uniqueMuscles.push(exercise.target.Primary[0]);
+    }
+  });
+    const formatTarget = (targetObject) => {
+      const primaryTargets = targetObject.Primary[0];
+      const secondaryTargets = targetObject.Secondary;
+
+      return primaryTargets;
+    };
+    const handleDeleteExercise = (exerciseToDelete) => {
+      const updatedExercises = selectedExercises.filter(
+        (exercise) => exercise._id !== exerciseToDelete._id
+      );
+      setSelectedExercises(updatedExercises);
+    };
+
   return (
     <section
       className="relative min-h-screen h-fit md:w-[80%] 
@@ -74,22 +108,20 @@ function SavedExercises() {
                 </Link>
               </p>
             ) : (
-              <div className="max-w-[380px] mx-auto mb-24">
+              <div className="max-w-[380px] mx-auto mb-6">
                 {exercises.map((exercise) => (
                   <SavedExerciseCard
                     key={exercise._id}
                     exercise={exercise}
-                    onClick={() => {
-                      if (isCreatingWorkout) {
-                        setSelectedExercises([...selectedExercises, exercise]);
-                      }
-                    }}
+                    onAddToWorkout={handleAddToWorkout}
+                    onDeleteExercise={handleDeleteExercise}
                   />
                 ))}
               </div>
             )}
             <button
-              className="bg-highlights py-2 px-4 rounded-full text-white shadow-md"
+              className="bg-highlights py-2 px-4 rounded-full
+               text-white shadow-md"
               onClick={() => {
                 setIsCreatingWorkout(true);
               }}
@@ -98,17 +130,67 @@ function SavedExercises() {
             </button>
 
             {isCreatingWorkout && (
-              <div className="selected-exercises">
-                <h2>Selected Exercises:</h2>
+              <div className="bg-slate-100 w-[400px] mb-6 p-4 rounded-sm shadow-md my-6 ">
                 <ul>
                   {selectedExercises.map((exercise) => (
-                    <li key={exercise._id}>
-                      <strong>{exercise.name}</strong>
-                      <p>Equipment needed: {exercise.equipment.join(", ")}</p>
-                      <p>Muscles targeted: {exercise.target.join(", ")}</p>
+                    <li
+                      key={exercise._id}
+                      className="p-2 border mb-2 bg-white/30"
+                    >
+                      <div className="flex flex-row items-center justify-between">
+                        <strong className="px-2">
+                          {exercise.exercise_name}
+                        </strong>
+                        <div className="flex flex-row-reverse gap-1 items-center justify-center">
+                          <Image
+                            src={`/assets/categories/${exercise.Category}.png`}
+                            height={36}
+                            width={36}
+                            title={`Category: ${exercise.Category}`}
+                            alt={exercise.Category}
+                            className="opacity-80"
+                          />
+                          <Image
+                            src={`/assets/muscles/${formatTarget(
+                              exercise.target
+                            )}.png`}
+                            height={40}
+                            width={40}
+                            title={`Target muscle: ${formatTarget(
+                              exercise.target
+                            )}`}
+                            alt={exercise.title}
+                            className="drop-shadow-2xl min-h-[20px] min-w-[20px]"
+                          />
+                          <button
+                            className="text-red-500 hover:text-red-700"
+                            onClick={() => handleDeleteExercise(exercise)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
                     </li>
                   ))}
                 </ul>
+                <div className="pt-4 pl-4">
+                  <p>
+                    <span className="font-semibold pr-2">Total</span>
+                    {selectedExercises.length} exercises
+                  </p>
+                  <p>
+                    <span className="font-semibold pr-2">
+                      Equipment needed:
+                    </span>{" "}
+                    {uniqueCategories.join(", ")}
+                  </p>
+                  <p>
+                    <span className="font-semibold pr-2">
+                      Targeted muscles:
+                    </span>
+                    {uniqueMuscles.join(", ")}
+                  </p>
+                </div>
               </div>
             )}
           </>

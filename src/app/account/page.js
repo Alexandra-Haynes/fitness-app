@@ -121,11 +121,12 @@ const progressTrack = {
 
           <ul>
             {savedExercises.map((exercise) => (
-              <li key={exercise._id} className="mb-2 underline text-blue-950">
+              <li key={exercise._id} className="mb-2  text-blue-950">
                 <Link href={`/exercise/${exercise._id}`}>{exercise.name}</Link>
               </li>
             ))}
           </ul>
+          <Link href='/my-saved-exercises' className="underline"> See all</Link>
         </div>
 
         {/* Previous Workouts Section */}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { MdOutlineOndemandVideo } from "react-icons/md";
-import { GrFormClose } from "react-icons/gr";
+
 
 const workoutIcons = {
   strength: "/assets/strength.png",

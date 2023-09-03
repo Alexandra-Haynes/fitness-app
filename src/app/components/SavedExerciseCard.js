@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { MdOutlineOndemandVideo } from "react-icons/md";
+import { MdOutlineOndemandVideo, MdOutlineAdd } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
 
-const SavedExerciseCard = ({ exercise }) => {
+const SavedExerciseCard = ({ exercise, onAddToWorkout,  }) => {
   const [expanded, setExpanded] = useState(false);
+  const [selectedExercises, setSelectedExercises] = useState([]);
 
-  const handleAddToWorkout = (exercise) => {
-    setSelectedExercises([...selectedExercises, exercise]);
-  };
+ 
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -67,6 +66,15 @@ const SavedExerciseCard = ({ exercise }) => {
                 </h3>
               </div>
               <div className="flex flex-row gap-2 items-center justify-center">
+                <button
+                  className="text-gray-600 text-sm underline "
+                  onClick={() => onAddToWorkout(exercise)}
+                >
+                  <MdOutlineAdd
+                    className="text-2xl hover:scale-110"
+                    title="add to workout"
+                  />
+                </button>
                 <button
                   className="text-gray-600 text-sm underline "
                   onClick={handleExpand}
