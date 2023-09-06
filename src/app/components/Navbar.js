@@ -74,17 +74,7 @@ const NavBar = () => {
               <LiaHomeSolid /> home.
             </Link>
           </li>
-          <li onClick={closeNavBar}>
-            <Link
-              href={"/progress"}
-              className="text-md 
-              flex flex-row items-center justify-center gap-2 "
-            >
-              {" "}
-              <BsBookshelf />
-              progress.
-            </Link>
-          </li>
+
           {/* <li onClick={closeNavBar}>
             <Link
               href={"/nutrition"}
@@ -109,6 +99,7 @@ const NavBar = () => {
               account.
             </Link>
           </li>
+        
           <li onClick={closeNavBar}>
             <Link
               href={"/calculator"}
@@ -117,7 +108,7 @@ const NavBar = () => {
             "
             >
               <AiOutlineCalculator />
-              calculator.
+              calculators.
             </Link>
           </li>
           <li onClick={closeNavBar}>
@@ -129,7 +120,19 @@ const NavBar = () => {
             >
               {" "}
               <CgGym />
-              exercises.
+              explore exercises.
+            </Link>
+          </li>
+          <li onClick={closeNavBar}>
+            <Link
+              href="/submit-workout"
+              className="text-md  flex flex-row items-center
+               justify-center gap-2 
+            "
+            >
+              {" "}
+              <BsBookshelf />
+              submit workout
             </Link>
           </li>
         </ul>
