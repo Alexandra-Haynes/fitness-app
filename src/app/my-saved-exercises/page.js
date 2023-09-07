@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {TiDelete} from 'react-icons/ti'
 
 import SavedExerciseCard from "../components/SavedExerciseCard";
 import ExerciseCardsSkeleton from "../components/ExerciseCardsSkeleton";
@@ -141,7 +142,7 @@ function SavedExercises() {
                         <strong className="px-2">
                           {exercise.exercise_name}
                         </strong>
-                        <div className="flex flex-row-reverse gap-1 items-center justify-center">
+                        <div className="flex flex-row gap-1 items-center justify-center">
                           <Image
                             src={`/assets/categories/${exercise.Category}.png`}
                             height={36}
@@ -163,10 +164,10 @@ function SavedExercises() {
                             className="drop-shadow-2xl min-h-[20px] min-w-[20px]"
                           />
                           <button
-                            className="text-red-500 hover:text-red-700"
+                            className="text-slate-500 hover:text-red-500 hover:scale-110"
                             onClick={() => handleDeleteExercise(exercise)}
                           >
-                            Delete
+                            <TiDelete />
                           </button>
                         </div>
                       </div>
