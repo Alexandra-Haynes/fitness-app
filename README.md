@@ -54,4 +54,12 @@ Feel free to [open an issue](https://github.com/Alexandra-Haynes/fitness-app/iss
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the [MIT License](LICENSE).  
+
+
+![Screenshot 2023-09-10 113702](https://github.com/Alexandra-Haynes/fitness-app/assets/113944962/69eff0da-410a-4a89-a027-b117b70c236b)  
+![Screenshot 2023-09-10 113626](https://github.com/Alexandra-Haynes/fitness-app/assets/113944962/0a953550-d275-4196-b4cf-df34ffd9756a)  
+![Screenshot 2023-09-10 113719](https://github.com/Alexandra-Haynes/fitness-app/assets/113944962/8206fe7b-aad7-4c71-9ad8-9a94431b3d92)  
+
+
+
