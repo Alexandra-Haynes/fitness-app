@@ -1,34 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MyWorkouts: Full Stack Fitness Web Application
 
-## Getting Started
+![Screenshot 2023-09-10 113559](https://github.com/Alexandra-Haynes/fitness-app/assets/113944962/592069d2-0f24-47c4-83dc-44c42bd2f409)
 
-First, run the development server:
+A holistic fitness application designed to guide, motivate, and educate fitness enthusiasts. Dive deep into an expansive exercise database, create custom workouts, earn achievement badges, and much more.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Live at https://myworkouts.vercel.app/.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features  
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 1. Exercise Database
+Over 800 Exercises: Browse an extensive collection, from basic to advanced.
+- Advanced Search: Filter by category, difficulty, muscle group, and required equipment.
+- Detailed Overviews: Access video tutorials and step-by-step guides for each exercise.
+- Save & Access: Personalize your experience by saving exercises and accessing them later.
+### 2. Workout Creation & Submission
+User-friendly Interface: Craft, save, and share your custom workout routines.
+### 3. Achievement Badges
+Gamification: Earn badges upon reaching specific fitness milestones. Stay motivated and engaged!
+### 4. Health Metrics Calculator
+Stay Informed: Calculate ideal body weight, BMI, body fat percentage, and basal metabolic rate.
+### 5. User Account Management
+Secure & Intuitive: Manage profiles, workout history, and badges seamlessly.  
+## 🛠️ Tech Stack  
+- Frontend: React, NextJS 13, and Tailwind CSS.
+- Backend: Node.js, with Mongoose for MongoDB integrations.
+- Database: MongoDB.
+- Authentication: NextAuth and JWT.
+- Third-Party Integrations: Utilized RapidAPI for health calculators.
+## 🌐 Hosting  
+Hosted on Vercel.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Setup & Installation
 
-## Learn More
+1. Clone the repository:
 
-To learn more about Next.js, take a look at the following resources:
+`
+git clone https://github.com/Alexandra-Haynes/fitness-app.git` <br>
+`cd my-workouts`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install the dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+`npm install`
 
-## Deploy on Vercel
+3. Run the development server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`npm run dev`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The portfolio will be accessible at `http://localhost:3000`.
+
+## Feedback & Contributions
+
+Feel free to [open an issue](https://github.com/Alexandra-Haynes/fitness-app/issues) if you find a bug or have a suggestion for improvements. I'm always open to feedback and learning from the community!
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
