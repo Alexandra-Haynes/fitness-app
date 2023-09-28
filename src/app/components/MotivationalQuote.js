@@ -39,9 +39,9 @@ const MotivationalQuote = () => {
     box.style.display = "none";
   };
 
-  useEffect(() => {
-    fetchQuote();
-  }, []);
+  // useEffect(() => {
+  //   fetchQuote();
+  // }, []);
 
   return (
     <div

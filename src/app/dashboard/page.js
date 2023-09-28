@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import WorkoutCard from "../components/WorkoutCard";
 import LoadingGif from "../components/LoadingGif";
 
@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [workouts, setWorkouts] = useState([]);
 
-  const fetchWorkouts = async () => {
+  const fetchWorkouts = useCallback(async () => {
     if (session && session.user) {
       let userId = session.user._id;
       setLoading(true);
@@ -28,33 +28,36 @@ const Dashboard = () => {
         setLoading(false);
       }
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     //only fetch once when the session changes, not every render
     fetchWorkouts();
-  }, [session]);
+  }, [fetchWorkouts]);
+
+  /*
+Why I use useCallback - Vercel deployment error:
+This way, fetchWorkouts will only be recreated when session changes, 
+and useEffect will only run when fetchWorkouts is recreated, effectively 
+still tying it to changes in session but in a way that satisfies 
+the rules of hooks.
+*/
+
   return (
     <section
       className="min-h-screen h-fit bg-slate-200
     w-screen flex flex-col items-center justify-center pt-24"
     >
       <h1> Dashboard</h1>
-      {loading ? (<LoadingGif />):
-      (
+      {loading ? (
+        <LoadingGif />
+      ) : (
         <div className="">
           {workouts.map((workout) => (
-            <WorkoutCard key={workout.key} workout = {workout} />
-         
+            <WorkoutCard key={workout.key} workout={workout} />
           ))}
         </div>
-      )
-      
-    
-    }
-
-
-
+      )}
     </section>
   );
 };

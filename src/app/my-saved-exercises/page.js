@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {TiDelete} from 'react-icons/ti'
@@ -18,7 +18,7 @@ function SavedExercises() {
   const [isCreatingWorkout, setIsCreatingWorkout] = useState(false);
   const [selectedExercises, setSelectedExercises] = useState([]);
 
-  const fetchExercises = async () => {
+  const fetchExercises =  useCallback(async () => {
     if (session && session.user) {
       let userId = session.user._id;
       setLoading(true);
@@ -37,12 +37,12 @@ function SavedExercises() {
         setLoading(false);
       }
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     //only fetch once when the session changes, not every render
     fetchExercises();
-  }, [session]);
+  }, [fetchExercises]);
 
   const handleAddToWorkout = (exercise) => {
     setSelectedExercises([...selectedExercises, exercise]);
@@ -99,7 +99,7 @@ function SavedExercises() {
           <>
             {exercises.length === 0 ? (
               <p className="text-slate-500 py-4">
-                You haven't saved any exercises yet.{" "}
+                You haven&apos;t saved any exercises yet.{" "}
                 <Link
                   href="/explore-exercises"
                   className="bg-highlights py-1 px-4 rounded-full text-white
