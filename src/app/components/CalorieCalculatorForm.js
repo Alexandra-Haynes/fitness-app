@@ -113,7 +113,7 @@ const CalorieCalculatorForm = () => {
 
       {activityNotFound && (
         <ErrorMessage
-          errorText={`We couldn't find this activity. Try a different version. For
+          errorText={`We couldn&apos;t find this activity. Try a different version. For
             example: run instead of running, pushups instead of push ups or
             push-ups.`}
         />
