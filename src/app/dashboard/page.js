@@ -21,7 +21,6 @@ const Dashboard = () => {
 
         const data = await response.json();
         setWorkouts(data.data);
-        console.log(workouts);
       } catch (error) {
         console.error("Error fetching workouts:", error);
       } finally {
@@ -30,8 +29,18 @@ const Dashboard = () => {
     }
   }, [session]);
 
+  // This effect logs the workouts whenever they change
+
   useEffect(() => {
-    //only fetch once when the session changes, not every render
+    if (workouts.length > 0) {
+      console.log(workouts);
+    }
+  }, [workouts]);
+
+  // This effect fetches workouts initially when the component is mounted
+  // and whenever fetchWorkouts changes
+
+  useEffect(() => {
     fetchWorkouts();
   }, [fetchWorkouts]);
 
