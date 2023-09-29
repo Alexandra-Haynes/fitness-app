@@ -83,7 +83,7 @@ const ExerciseCard = ({ exercise }) => {
     // } else {
     //   return `Target: ${primaryTargets}`;
     // }
-    return primaryTargets.toLowerCase();
+    return primaryTargets;
   };
 
   return (
