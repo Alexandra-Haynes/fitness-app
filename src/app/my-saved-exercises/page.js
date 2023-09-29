@@ -116,6 +116,7 @@ function SavedExercises() {
                     exercise={exercise}
                     onAddToWorkout={handleAddToWorkout}
                     onDeleteExercise={handleDeleteExercise}
+                    showAddIcon={isCreatingWorkout}
                   />
                 ))}
               </div>
@@ -144,7 +145,7 @@ function SavedExercises() {
                         </strong>
                         <div className="flex flex-row gap-1 items-center justify-center">
                           <Image
-                            src={`/assets/categories/${exercise.Category}.png`}
+                            src={`/assets/categories/${exercise.Category.toLowerCase()}.png`}
                             height={36}
                             width={36}
                             title={`Category: ${exercise.Category}`}

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { MdOutlineOndemandVideo, MdOutlineAdd } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
 
-const SavedExerciseCard = ({ exercise, onAddToWorkout,  }) => {
+const SavedExerciseCard = ({ exercise, onAddToWorkout, showAddIcon }) => {
   const [expanded, setExpanded] = useState(false);
   const [selectedExercises, setSelectedExercises] = useState([]);
 
@@ -66,15 +66,18 @@ const SavedExerciseCard = ({ exercise, onAddToWorkout,  }) => {
                 </h3>
               </div>
               <div className="flex flex-row gap-2 items-center justify-center">
-                <button
-                  className="text-gray-600 text-sm underline "
-                  onClick={() => onAddToWorkout(exercise)}
-                >
-                  <MdOutlineAdd
-                    className="text-2xl hover:scale-110"
-                    title="add to workout"
-                  />
-                </button>
+                {showAddIcon && (
+                  <button
+                    className="text-gray-600 text-sm underline "
+                    onClick={() => onAddToWorkout(exercise)}
+                  >
+                    <MdOutlineAdd
+                      className="text-2xl hover:scale-110"
+                      title="add to workout"
+                    />
+                  </button>
+                )}
+             
                 <button
                   className="text-gray-600 text-sm underline "
                   onClick={handleExpand}
@@ -106,7 +109,7 @@ const SavedExerciseCard = ({ exercise, onAddToWorkout,  }) => {
               mute
               controls
               src={exercise.videoURL}
-              className="shadow-md  md:max-w-[600px]"
+              className="shadow-md  md:max-w-[300px]"
             ></video>
           </div>
 
