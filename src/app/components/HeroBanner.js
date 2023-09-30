@@ -58,18 +58,26 @@ const HeroBanner = ({ navigateToExercises }) => {
           <div
             className="bg-white/70 text-black cursor-pointer hover:translate-y-1 hover:bg-highlights
         font-semibold  mt-12 py-3 px-6 text-lg rounded-sm text-center shadow-xl
-         transition-all duration-300 animate-slide-in-left w-[220px] rounded-r-lg
+         transition-all duration-300 animate-slide-in-left w-[300px] rounded-r-lg
           xl:rounded-r-none xl:rounded-l-lg xl:self-end"
           >
-            <Link href="/explore-exercises">Explore exercises </Link>
+            <Link href="/explore-exercises">Explore new exercises </Link>
           </div>
           <div
             className="bg-white/70 text-black cursor-pointer hover:translate-y-1 hover:bg-highlights
         font-semibold  py-3 px-6 text-lg rounded-sm text-center shadow-xl
-         transition-all duration-300 animate-slide-in-left w-[190px] rounded-r-lg
+         transition-all duration-300 animate-slide-in-left w-[280px] rounded-r-lg
          xl:rounded-r-none xl:rounded-l-lg xl:self-end"
           >
-            <Link href="/submit-workout">Submit workout </Link>
+            <Link href="/my-saved-exercises"> Go to saved exercises </Link>
+          </div>
+          <div
+            className="bg-white/70 text-black cursor-pointer hover:translate-y-1 hover:bg-highlights
+        font-semibold  py-3 px-6 text-lg rounded-sm text-center shadow-xl
+         transition-all duration-300 animate-slide-in-left w-[260px] rounded-r-lg
+         xl:rounded-r-none xl:rounded-l-lg xl:self-end"
+          >
+            <Link href="/submit-workout">Submit a workout </Link>
           </div>
         </div>
       </div>
