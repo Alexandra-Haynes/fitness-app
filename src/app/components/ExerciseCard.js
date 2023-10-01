@@ -6,6 +6,7 @@ import { MdOutlineOndemandVideo } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
 import { AiOutlineFolderAdd, AiOutlineLoading3Quarters } from "react-icons/ai";
 import {MdOutlineBookmarkAdded} from 'react-icons/md'
+import NotLoggedIn from "./NotLoggedIn";
 
 const ExerciseCard = ({ exercise }) => {
   const { data: session } = useSession();
@@ -13,9 +14,7 @@ const ExerciseCard = ({ exercise }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-
-
+  const [isNotLoggedIn, setIsNotLoggedIn] = useState(false); 
 
   // if (session) {
   // let userId = session.user._id;
@@ -23,43 +22,42 @@ const ExerciseCard = ({ exercise }) => {
   // }
 
   const saveExercise = async () => {
-    setIsLoading(true); 
+    setIsLoading(true);
     try {
-      const { id, ...exerciseWithoutId } = exercise; //dont send id to db
-      if (session && session.user) {
-        let userId = session.user._id;
-
-        const postData = {
-          userId,
-          exercise: exerciseWithoutId,
-        };
-        const response = await axios.post("/api/save-exercise", postData);
-
-        if (response.data && response.data.message) {
-          console.log(response.data.message);
-          setIsSaved(true);
-          setSuccessMessage("Exercise successfully saved!");
-          //clear popup after 2sec
-          setTimeout(() => {
-            setSuccessMessage("");
-          }, 2000);
-        } else if (response.status) {
-          console.log(
-            `Server responded with status code: ${response.status}`
-          );
-          setIsSaved(true);
-          setSuccessMessage("Exercise saved!");
-          //clear popup after 2sec
-            setTimeout(() => {
-              setSuccessMessage("");
-            }, 2000);
-        }
+      if (!session) {
+      setIsNotLoggedIn(true)
+      setIsLoading(false)
+      return;
       }
-     
+
+      const { id, ...exerciseWithoutId } = exercise;
+      const userId = session.user._id;
+
+      const postData = {
+        userId,
+        exercise: exerciseWithoutId,
+      };
+      const response = await axios.post("/api/save-exercise", postData);
+
+      if (response.data && response.data.message) {
+        console.log(response.data.message);
+        setIsSaved(true);
+        setSuccessMessage("Exercise successfully saved!");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 2000);
+      } else if (response.status) {
+        console.log(`Server responded with status code: ${response.status}`);
+        setIsSaved(true);
+        setSuccessMessage("Exercise saved!");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 2000);
+      }
     } catch (error) {
       console.error("Error saving exercise:", error);
     }
-     setIsLoading(false);
+    setIsLoading(false);
   };
 
   const handleExpand = () => {
@@ -197,6 +195,7 @@ const ExerciseCard = ({ exercise }) => {
           <div className="p-2  text-green-500">{successMessage}</div>
         )}
       </div>
+      {isNotLoggedIn && <NotLoggedIn />}
     </div>
   );
 };
